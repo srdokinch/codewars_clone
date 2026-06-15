@@ -28,21 +28,26 @@
     "title": "真偽値を確認",
     "level": "basic",
     "type": "execution",
-    "question": "変数 `isActive` に `true` を代入し、`console.log(isActive)` で表示してください。",
+    "question": "Webページでは「モーダルが開いているか」「閉じているか」のように、2つの状態を `true` / `false` で表すことがよくあります。\n\n次の変数を作り、値を `console.log` で表示してください（2行出力）。\n\n- `isOpen` … モーダルが開いている → `true`\n- `isClosed` … モーダルが閉じている → `false`",
     "starterCode": "// ここにコードを書いてください\n",
-    "answer": "const isActive = true;\nconsole.log(isActive);",
-    "explanation": "真偽値（boolean）は `true` または `false` の2つの値だけを持ちます。CSSの `:checked` や `[disabled]` のように、状態を表すのに使われます。",
+    "answer": "const isOpen = true;\nconst isClosed = false;\nconsole.log(isOpen);\nconsole.log(isClosed);",
+    "explanation": "真偽値（boolean）は `true` と `false` の2つだけです。`console.log(isOpen)` のように書くと、変数の中身（`true` や `false`）がそのまま表示されます。`\"true\"` のようにクォートで囲むと文字列になり、真偽値ではありません。",
     "learningPoints": [
-      "boolean型は true / false の2値",
-      "クォートで囲まない（\"true\" は文字列になる）",
-      "条件分岐の基礎となるデータ型"
+      "boolean型は true / false の2値だけ",
+      "console.log(変数) で true / false を確認できる",
+      "クォートで囲むと文字列になるので注意"
     ],
     "hints": [
-      "true はクォートで囲みません",
-      "const isActive = true; と書きます"
+      "const isOpen = true; const isClosed = false; と書きます",
+      "true と false はクォートで囲みません",
+      "console.log(isOpen); console.log(isClosed); の2行で表示します"
     ],
     "testCases": [
-      { "input": [], "expected": "true" }
+      { "input": [], "expected": "true\nfalse" }
+    ],
+    "variableChecks": [
+      { "name": "isOpen", "type": "boolean" },
+      { "name": "isClosed", "type": "boolean" }
     ]
   },
   {

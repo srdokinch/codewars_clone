@@ -20,7 +20,8 @@
     ],
     "testCases": [
       { "input": [], "expected": "偶数" }
-    ]
+    ],
+    "forbidLooseEquality": true
   },
   {
     "id": "w3-b2",

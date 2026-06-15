@@ -4,8 +4,9 @@
     "week": 4,
     "title": "配列の要素を表示",
     "level": "basic",
+    "section": "配列編",
     "type": "execution",
-    "question": "配列 `fruits` に [\"りんご\", \"バナナ\", \"みかん\"] を代入し、最初の要素（インデックス0）を `console.log` で表示してください。",
+    "question": "配列 `fruits` に [\"りんご\", \"バナナ\", \"みかん\"] を代入し、最初の要素を `console.log` で表示してください。",
     "starterCode": "// ここにコードを書いてください\n",
     "answer": "const fruits = [\"りんご\", \"バナナ\", \"みかん\"];\nconsole.log(fruits[0]);",
     "explanation": "配列は `[]` で作成し、インデックス（0から始まる番号）で要素にアクセスします。HTMLのリスト項目を配列で管理するイメージです。",
@@ -25,24 +26,25 @@
   {
     "id": "w4-b2",
     "week": 4,
-    "title": "for文で繰り返し",
+    "title": "2番目の要素を取得",
     "level": "basic",
+    "section": "配列編",
     "type": "execution",
-    "question": "for文を使って 1 から 3 までを順番に `console.log` で表示してください。",
+    "question": "配列 `colors` に [\"red\", \"green\", \"blue\"] を代入し、2番目の要素を `console.log` で表示してください。",
     "starterCode": "// ここにコードを書いてください\n",
-    "answer": "for (let i = 1; i <= 3; i++) {\n  console.log(i);\n}",
-    "explanation": "`for (初期化; 条件; 更新)` の3つの部分で繰り返しを制御します。CSSの `@for` ループ（Sass）と似た考え方です。",
+    "answer": "const colors = [\"red\", \"green\", \"blue\"];\nconsole.log(colors[1]);",
+    "explanation": "配列のインデックスは 0 から数えます。1番目は `[0]`、2番目は `[1]`、3番目は `[2]` です。",
     "learningPoints": [
-      "for文の3つの部分：初期化・条件・更新",
-      "let は再代入可能な変数を宣言する",
-      "i++ は i を1増やす（インクリメント）"
+      "2番目の要素はインデックス 1",
+      "人間の数え方（1から）とインデックス（0から）は1つずれる",
+      "array[1] で2番目の要素にアクセスできる"
     ],
     "hints": [
-      "for (let i = 1; i <= 3; i++) { ... } の形式です",
-      "ループ内で console.log(i); を呼びます"
+      "2番目の要素は colors[1] です",
+      "console.log(colors[1]); で表示できます"
     ],
     "testCases": [
-      { "input": [], "expected": "1\n2\n3" }
+      { "input": [], "expected": "green" }
     ]
   },
   {
@@ -50,6 +52,7 @@
     "week": 4,
     "title": "配列の長さ",
     "level": "basic",
+    "section": "配列編",
     "type": "execution",
     "question": "配列 `colors` に [\"red\", \"green\", \"blue\", \"yellow\"] を代入し、配列の要素数を `console.log` で表示してください。",
     "starterCode": "// ここにコードを書いてください\n",
@@ -69,26 +72,219 @@
     ]
   },
   {
-    "id": "w4-a1",
+    "id": "w4-b4",
     "week": 4,
-    "title": "配列の合計を求める",
-    "level": "advanced",
+    "title": "for文で繰り返し",
+    "level": "basic",
+    "section": "配列編",
     "type": "execution",
-    "question": "配列 `numbers` に [10, 20, 30, 40] を代入し、for文を使って全要素の合計を計算し表示してください。",
-    "starterCode": "const numbers = [10, 20, 30, 40];\n// ここにコードを書いてください\n",
-    "answer": "const numbers = [10, 20, 30, 40];\nlet sum = 0;\nfor (let i = 0; i < numbers.length; i++) {\n  sum += numbers[i];\n}\nconsole.log(sum);",
-    "explanation": "ループと変数を組み合わせて、配列の全要素を処理する典型的なパターンです。Reactでリストの合計を計算する際にも同じ考え方を使います。",
+    "question": "for文を使って 1 から 3 までを順番に `console.log` で表示してください。",
+    "starterCode": "// ここにコードを書いてください\n",
+    "answer": "for (let i = 1; i <= 3; i++) {\n  console.log(i);\n}",
+    "explanation": "`for (初期化; 条件; 更新)` の3つの部分で繰り返しを制御します。次の問題では、この for文を使って配列の要素を順番に処理します。",
     "learningPoints": [
-      "let sum = 0; で累積用の変数を用意する",
-      "sum += numbers[i]; で加算を繰り返す",
-      "numbers.length を使ってループ回数を決める"
+      "for文の3つの部分：初期化・条件・更新",
+      "let は再代入可能な変数を宣言する",
+      "i++ は i を1増やす（インクリメント）"
     ],
     "hints": [
-      "let sum = 0; で合計を蓄積する変数を作ります",
-      "for文で numbers[i] を sum に足していきます"
+      "for (let i = 1; i <= 3; i++) { ... } の形式です",
+      "ループ内で console.log(i); を呼びます"
     ],
     "testCases": [
-      { "input": [], "expected": "100" }
+      { "input": [], "expected": "1\n2\n3" }
+    ]
+  },
+  {
+    "id": "w4-b5",
+    "week": 4,
+    "title": "for文で配列を表示",
+    "level": "basic",
+    "section": "配列編",
+    "type": "execution",
+    "question": "配列 `items` に [\"A\", \"B\", \"C\"] を代入し、for文と `items.length` を使って全要素を1行ずつ `console.log` で表示してください。",
+    "starterCode": "const items = [\"A\", \"B\", \"C\"];\n// ここにfor文を書いてください\n",
+    "answer": "const items = [\"A\", \"B\", \"C\"];\nfor (let i = 0; i < items.length; i++) {\n  console.log(items[i]);\n}",
+    "explanation": "`for (let i = 0; i < array.length; i++)` は配列の全要素を順番に処理する基本パターンです。リスト表示の土台になる書き方です。",
+    "learningPoints": [
+      "i = 0 から length 未満までループする",
+      "items[i] で i 番目の要素にアクセスできる",
+      "配列の要素数に合わせて繰り返せる"
+    ],
+    "hints": [
+      "for (let i = 0; i < items.length; i++) { ... } の形式です",
+      "ループ内で console.log(items[i]); を呼びます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "A\nB\nC" }
+    ]
+  },
+  {
+    "id": "w4-b6",
+    "week": 4,
+    "title": "最後の要素を取得",
+    "level": "basic",
+    "section": "配列編",
+    "type": "execution",
+    "question": "配列 `fruits` に [\"りんご\", \"バナナ\", \"みかん\"] を代入し、最後の要素を `console.log` で表示してください。",
+    "starterCode": "const fruits = [\"りんご\", \"バナナ\", \"みかん\"];\n// ここにコードを書いてください\n",
+    "answer": "const fruits = [\"りんご\", \"バナナ\", \"みかん\"];\nconsole.log(fruits[fruits.length - 1]);",
+    "explanation": "最後の要素のインデックスは `length - 1` です。配列の長さが変わっても、常に最後の要素を取得できます。",
+    "learningPoints": [
+      "最後のインデックスは length - 1",
+      "fruits[fruits.length - 1] で最後の要素を取得できる",
+      "インデックスと length の関係を理解する"
+    ],
+    "hints": [
+      "最後の要素は fruits[fruits.length - 1] です",
+      "console.log(fruits[fruits.length - 1]); で表示できます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "みかん" }
+    ]
+  },
+  {
+    "id": "w4-b7",
+    "week": 4,
+    "title": "pushで要素を追加",
+    "level": "basic",
+    "section": "メソッド編",
+    "type": "execution",
+    "question": "配列 `tags` に [\"HTML\", \"CSS\"] を代入し、`push` で \"JavaScript\" を追加したあと、追加した要素（3番目）を `console.log` で表示してください。",
+    "starterCode": "const tags = [\"HTML\", \"CSS\"];\n// ここにコードを書いてください\n",
+    "answer": "const tags = [\"HTML\", \"CSS\"];\ntags.push(\"JavaScript\");\nconsole.log(tags[2]);",
+    "explanation": "`.push()` は配列の末尾に要素を追加するメソッドです。戻り値は新しい length であり、配列そのものではない点に注意してください。",
+    "learningPoints": [
+      "push() で配列の末尾に要素を追加できる",
+      "push() の戻り値は配列ではなく length",
+      "const でも配列の中身は変更できる"
+    ],
+    "hints": [
+      "tags.push(\"JavaScript\"); で要素を追加します",
+      "追加後の3番目は tags[2] です"
+    ],
+    "testCases": [
+      { "input": [], "expected": "JavaScript" }
+    ]
+  },
+  {
+    "id": "w4-b8",
+    "week": 4,
+    "title": "forEachで順番に処理",
+    "level": "basic",
+    "section": "メソッド編",
+    "type": "execution",
+    "question": "配列 `items` に [\"A\", \"B\", \"C\"] を代入し、`forEach` で各要素を1行ずつ `console.log` で表示してください。",
+    "starterCode": "const items = [\"A\", \"B\", \"C\"];\n// ここにforEachを書いてください\n",
+    "answer": "const items = [\"A\", \"B\", \"C\"];\nitems.forEach(function (item) {\n  console.log(item);\n});",
+    "explanation": "`.forEach()` は配列の各要素に対して処理を実行するメソッドです。for文の代わりに使え、リストの各項目を処理するときによく使います。",
+    "learningPoints": [
+      "forEach で配列の全要素を順番に処理できる",
+      "コールバック関数の引数 item が各要素になる",
+      "for文と同じ結果をより簡潔に書ける"
+    ],
+    "hints": [
+      "items.forEach(function (item) { ... }); の形式です",
+      "ループ内で console.log(item); を呼びます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "A\nB\nC" }
+    ]
+  },
+  {
+    "id": "w4-b9",
+    "week": 4,
+    "title": "includesで含まれるか確認",
+    "level": "basic",
+    "section": "メソッド編",
+    "type": "execution",
+    "question": "配列 `skills` に [\"HTML\", \"CSS\", \"JavaScript\"] を代入し、`includes` を使って \"CSS\" が含まれるかどうかを `console.log` で表示してください。",
+    "starterCode": "const skills = [\"HTML\", \"CSS\", \"JavaScript\"];\n// ここにコードを書いてください\n",
+    "answer": "const skills = [\"HTML\", \"CSS\", \"JavaScript\"];\nconsole.log(skills.includes(\"CSS\"));",
+    "explanation": "`.includes()` は配列に指定した値が含まれるかを `true` / `false` で返します。選択状態の確認や、表示・非表示の切り替え判定によく使います。",
+    "learningPoints": [
+      "includes() は true / false を返す",
+      "配列に特定の値があるか調べられる",
+      "条件分岐と組み合わせやすい"
+    ],
+    "hints": [
+      "skills.includes(\"CSS\") で確認できます",
+      "console.log(skills.includes(\"CSS\")); で表示しましょう"
+    ],
+    "testCases": [
+      { "input": [], "expected": "true" }
+    ]
+  },
+  {
+    "id": "w4-b10",
+    "week": 4,
+    "title": "joinで文字列に結合",
+    "level": "basic",
+    "section": "メソッド編",
+    "type": "execution",
+    "question": "配列 `tags` に [\"HTML\", \"CSS\", \"JavaScript\"] を代入し、`join(\", \")` でカンマ区切りの1つの文字列にして `console.log` で表示してください。",
+    "starterCode": "const tags = [\"HTML\", \"CSS\", \"JavaScript\"];\n// ここにコードを書いてください\n",
+    "answer": "const tags = [\"HTML\", \"CSS\", \"JavaScript\"];\nconsole.log(tags.join(\", \"));",
+    "explanation": "`.join()` は配列の要素を指定した区切り文字でつないで、1つの文字列にします。タグ一覧やパンくずリストの表示に使える考え方です。",
+    "learningPoints": [
+      "join() で配列を1つの文字列にできる",
+      "区切り文字を引数で指定する",
+      "リスト表示の基礎になる"
+    ],
+    "hints": [
+      "tags.join(\", \") でカンマ+スペース区切りになります",
+      "console.log(tags.join(\", \")); で表示しましょう"
+    ],
+    "testCases": [
+      { "input": [], "expected": "HTML, CSS, JavaScript" }
+    ]
+  },
+  {
+    "id": "w4-b11",
+    "week": 4,
+    "title": "sliceで一部を取り出す",
+    "level": "basic",
+    "section": "メソッド編",
+    "type": "execution",
+    "question": "配列 `colors` に [\"red\", \"green\", \"blue\", \"yellow\"] を代入し、`slice(0, 2)` で先頭2つの要素を取り出した配列の要素数を `console.log` で表示してください。",
+    "starterCode": "const colors = [\"red\", \"green\", \"blue\", \"yellow\"];\n// ここにコードを書いてください\n",
+    "answer": "const colors = [\"red\", \"green\", \"blue\", \"yellow\"];\nconst firstTwo = colors.slice(0, 2);\nconsole.log(firstTwo.length);",
+    "explanation": "`.slice()` は配列の一部をコピーして新しい配列を返します。元の配列は変わりません。状態を壊さずにデータを扱う考え方の基礎になります。",
+    "learningPoints": [
+      "slice(開始, 終了) で一部を取り出せる",
+      "元の配列は変更されない",
+      "新しい配列が返る"
+    ],
+    "hints": [
+      "const firstTwo = colors.slice(0, 2); で先頭2つを取得します",
+      "firstTwo.length で要素数を確認できます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "2" }
+    ]
+  },
+  {
+    "id": "w4-b12",
+    "week": 4,
+    "title": "indexOfで位置を調べる",
+    "level": "basic",
+    "section": "メソッド編",
+    "type": "execution",
+    "question": "配列 `fruits` に [\"りんご\", \"バナナ\", \"みかん\"] を代入し、`indexOf` を使って \"バナナ\" のインデックスを `console.log` で表示してください。",
+    "starterCode": "const fruits = [\"りんご\", \"バナナ\", \"みかん\"];\n// ここにコードを書いてください\n",
+    "answer": "const fruits = [\"りんご\", \"バナナ\", \"みかん\"];\nconsole.log(fruits.indexOf(\"バナナ\"));",
+    "explanation": "`.indexOf()` は指定した値が配列の何番目にあるか（インデックス）を返します。見つからない場合は `-1` を返します。",
+    "learningPoints": [
+      "indexOf() で要素の位置（インデックス）がわかる",
+      "見つからないときは -1",
+      "配列内の特定項目を探すときに使う"
+    ],
+    "hints": [
+      "fruits.indexOf(\"バナナ\") で位置を調べられます",
+      "console.log(fruits.indexOf(\"バナナ\")); で表示しましょう"
+    ],
+    "testCases": [
+      { "input": [], "expected": "1" }
     ]
   }
 ]

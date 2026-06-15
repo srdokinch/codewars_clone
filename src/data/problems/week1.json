@@ -66,6 +66,9 @@
     ],
     "testCases": [
       { "input": [], "expected": "JavaScript\n2024" }
+    ],
+    "variableChecks": [
+      { "name": "year", "type": "number" }
     ]
   },
   {

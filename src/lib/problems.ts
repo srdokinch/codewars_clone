@@ -41,3 +41,21 @@ export function getAvailableWeeks(): number[] {
 export function hasProblems(weekId: number): boolean {
   return weekId in problemsByWeek && problemsByWeek[weekId].length > 0;
 }
+
+export function groupProblemsBySection(
+  problems: Problem[]
+): { label: string; problems: Problem[] }[] {
+  const groups: { label: string; problems: Problem[] }[] = [];
+  const indexByLabel = new Map<string, number>();
+
+  for (const problem of problems) {
+    const label = problem.section ?? "基本問題";
+    if (!indexByLabel.has(label)) {
+      indexByLabel.set(label, groups.length);
+      groups.push({ label, problems: [] });
+    }
+    groups[indexByLabel.get(label)!].problems.push(problem);
+  }
+
+  return groups;
+}

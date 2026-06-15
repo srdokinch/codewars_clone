@@ -1,4 +1,4 @@
-import type { Problem, RunResult } from "@/types";
+import type { Problem, RunResult, VariableCheck } from "@/types";
 
 export interface CodeRunnerStrategy {
   type: Problem["type"];
@@ -14,6 +14,115 @@ function formatValue(value: unknown): string {
 
 function valuesEqual(actual: unknown, expected: unknown): boolean {
   return formatValue(actual) === formatValue(expected);
+}
+
+/** 行ごとに空白を除いて比較する（改行の区切りは維持） */
+function normalizeOutputLines(text: string): string[] {
+  return text
+    .split("\n")
+    .map((line) => line.replace(/\s/g, ""))
+    .filter((line) => line.length > 0);
+}
+
+function outputsMatch(actual: string, expected: string): boolean {
+  const actualLines = normalizeOutputLines(actual);
+  const expectedLines = normalizeOutputLines(expected);
+
+  if (actualLines.length !== expectedLines.length) return false;
+
+  return actualLines.every((line, index) => line === expectedLines[index]);
+}
+
+const VARIABLE_TYPE_LABELS: Record<VariableCheck["type"], string> = {
+  number: "数値",
+  string: "文字列",
+  boolean: "真偽値",
+};
+
+function getVariableTypes(
+  code: string,
+  names: string[],
+  captureConsole: {
+    log: (...args: unknown[]) => void;
+    warn: (...args: unknown[]) => void;
+    error: (...args: unknown[]) => void;
+  }
+): Record<string, string> {
+  const checks = names
+    .map(
+      (name) =>
+        `try { __types[${JSON.stringify(name)}] = typeof ${name}; } catch { __types[${JSON.stringify(name)}] = "undefined"; }`
+    )
+    .join("\n");
+
+  const runner = new Function(
+    "console",
+    `"use strict";\n${code}\nconst __types = {};\n${checks}\nreturn __types;`
+  );
+
+  return runner(captureConsole) as Record<string, string>;
+}
+
+function checkVariableTypes(
+  code: string,
+  checks: VariableCheck[],
+  captureConsole: {
+    log: (...args: unknown[]) => void;
+    warn: (...args: unknown[]) => void;
+    error: (...args: unknown[]) => void;
+  }
+): { passed: boolean; error?: string; details?: string[] } {
+  const names = checks.map((check) => check.name);
+  const types = getVariableTypes(code, names, captureConsole);
+
+  for (const check of checks) {
+    const actualType = types[check.name];
+    const expectedLabel = VARIABLE_TYPE_LABELS[check.type];
+
+    if (actualType === "undefined") {
+      return {
+        passed: false,
+        error: `変数 "${check.name}" が見つかりません`,
+        details: [`変数 ${check.name} を宣言してください`],
+      };
+    }
+
+    if (actualType !== check.type) {
+      return {
+        passed: false,
+        error: `変数 "${check.name}" の型が正しくありません`,
+        details: [
+          `期待: ${expectedLabel}型`,
+          `実際: ${VARIABLE_TYPE_LABELS[actualType as VariableCheck["type"]] ?? actualType}型`,
+          check.type === "number"
+            ? "数値はクォートで囲まずに代入してください（例: const year = 2024）"
+            : undefined,
+        ].filter((detail): detail is string => Boolean(detail)),
+      };
+    }
+  }
+
+  return { passed: true };
+}
+
+/** === や !== 以外の == を検出する */
+function usesLooseEquality(code: string): boolean {
+  return /(?<![!=])==(?!=)/.test(code);
+}
+
+function checkCodeRules(
+  code: string,
+  problem: Problem
+): { passed: boolean; error?: string; details?: string[] } {
+  if (problem.forbidLooseEquality && usesLooseEquality(code)) {
+    return {
+      passed: false,
+      error: "緩い等価比較（==）は使えません",
+      details: ["条件式では === を使ってください"],
+    };
+  }
+
+  return { passed: true };
 }
 
 /** console.logの出力をキャプチャして実行する */
@@ -62,15 +171,43 @@ export function runExecutionCode(
   }
 
   const expected = formatValue(testCase.expected);
-  const passed = output === expected;
+  const passed = outputsMatch(output, expected);
+
+  if (!passed) {
+    return {
+      success: false,
+      message: "Incorrect",
+      details: [`期待値: ${expected}`, `あなたの出力: ${output || "(なし)"}`],
+      error: "出力の内容が一致しません",
+    };
+  }
+
+  if (problem.variableChecks?.length) {
+    const typeCheck = checkVariableTypes(code, problem.variableChecks, captureConsole);
+    if (!typeCheck.passed) {
+      return {
+        success: false,
+        message: "Incorrect",
+        error: typeCheck.error,
+        details: typeCheck.details,
+      };
+    }
+  }
+
+  const codeRuleCheck = checkCodeRules(code, problem);
+  if (!codeRuleCheck.passed) {
+    return {
+      success: false,
+      message: "Incorrect",
+      error: codeRuleCheck.error,
+      details: codeRuleCheck.details,
+    };
+  }
 
   return {
-    success: passed,
-    message: passed ? "Correct!" : "Incorrect",
-    details: passed
-      ? [`出力: ${output}`]
-      : [`期待値: ${expected}`, `あなたの出力: ${output || "(なし)"}`],
-    error: passed ? undefined : "出力が期待値と一致しません",
+    success: true,
+    message: "Correct!",
+    details: [`出力: ${output}`],
   };
 }
 

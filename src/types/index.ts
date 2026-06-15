@@ -12,6 +12,8 @@ export interface Problem {
   week: number;
   title: string;
   level: ProblemLevel;
+  /** Week内の章分け（例: 配列編、メソッド編） */
+  section?: string;
   type: ProblemType;
   question: string;
   starterCode: string;
@@ -20,8 +22,17 @@ export interface Problem {
   learningPoints: string[];
   hints: string[];
   testCases: TestCase[];
+  /** execution方式で変数の型を検証（Week1など） */
+  variableChecks?: VariableCheck[];
+  /** execution方式で緩い等価比較（==）を禁止する */
+  forbidLooseEquality?: boolean;
   /** test方式で呼び出す関数名（Week5以降で使用） */
   functionName?: string;
+}
+
+export interface VariableCheck {
+  name: string;
+  type: "number" | "string" | "boolean";
 }
 
 export interface Week {

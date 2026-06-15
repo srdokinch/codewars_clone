@@ -29,7 +29,8 @@ export default function ProblemWorkspace({
         <div className="border-b border-codewars-border bg-codewars-surface px-6 py-3">
           <div className="flex items-center gap-3">
             <Link
-              href={`/week/${problem.week}`}
+              href={`/week/${problem.week}#${problem.id}`}
+              scroll={false}
               className="text-sm text-codewars-muted hover:text-codewars-accent"
             >
               ← Week {problem.week}
