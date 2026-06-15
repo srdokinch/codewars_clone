@@ -1,0 +1,94 @@
+[
+  {
+    "id": "w3-b1",
+    "week": 3,
+    "title": "偶数かどうか判定",
+    "level": "basic",
+    "type": "execution",
+    "question": "変数 `num` に 8 を代入し、偶数なら \"偶数\"、奇数なら \"奇数\" を `console.log` で表示してください。",
+    "starterCode": "const num = 8;\n// ここにif文を書いてください\n",
+    "answer": "const num = 8;\nif (num % 2 === 0) {\n  console.log(\"偶数\");\n} else {\n  console.log(\"奇数\");\n}",
+    "explanation": "`if / else` 文は条件が真（true）のときと偽（false）のときで処理を分岐します。`%` は剰余演算子で、2で割った余りが0なら偶数です。",
+    "learningPoints": [
+      "if (条件) { } else { } の基本構文",
+      "% 演算子で剰余を求められる",
+      "=== で厳密等価比較を行う"
+    ],
+    "hints": [
+      "num % 2 === 0 が偶数の条件です",
+      "if (num % 2 === 0) { console.log(\"偶数\"); } else { ... }"
+    ],
+    "testCases": [
+      { "input": [], "expected": "偶数" }
+    ]
+  },
+  {
+    "id": "w3-b2",
+    "week": 3,
+    "title": "合格判定",
+    "level": "basic",
+    "type": "execution",
+    "question": "変数 `score` に 75 を代入し、60点以上なら \"合格\"、未満なら \"不合格\" を表示してください。",
+    "starterCode": "const score = 75;\n// ここにif文を書いてください\n",
+    "answer": "const score = 75;\nif (score >= 60) {\n  console.log(\"合格\");\n} else {\n  console.log(\"不合格\");\n}",
+    "explanation": "比較演算子 `>=`（以上）、`<=`（以下）、`>`（より大きい）、`<`（より小さい）を使って数値を比較します。",
+    "learningPoints": [
+      ">= で「以上」の比較ができる",
+      "数値の閾値による分岐はよく使うパターン",
+      "else で条件に合わない場合を処理する"
+    ],
+    "hints": [
+      "score >= 60 が合格の条件です",
+      "if (score >= 60) { console.log(\"合格\"); } else { ... }"
+    ],
+    "testCases": [
+      { "input": [], "expected": "合格" }
+    ]
+  },
+  {
+    "id": "w3-b3",
+    "week": 3,
+    "title": "ログイン状態の確認",
+    "level": "basic",
+    "type": "execution",
+    "question": "変数 `isLoggedIn` に `true` を代入し、ログイン中なら \"ようこそ\"、そうでなければ \"ログインしてください\" を表示してください。",
+    "starterCode": "const isLoggedIn = true;\n// ここにif文を書いてください\n",
+    "answer": "const isLoggedIn = true;\nif (isLoggedIn) {\n  console.log(\"ようこそ\");\n} else {\n  console.log(\"ログインしてください\");\n}",
+    "explanation": "真偽値をそのまま条件式に使えます。`if (isLoggedIn)` は `if (isLoggedIn === true)` と同じ意味です。",
+    "learningPoints": [
+      "真偽値はそのまま条件に使える",
+      "ユーザー状態に応じた表示切り替えの基礎",
+      "Webアプリでよく使うパターン"
+    ],
+    "hints": [
+      "if (isLoggedIn) で true のときの処理を書きます",
+      "else で false のときの処理を書きます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "ようこそ" }
+    ]
+  },
+  {
+    "id": "w3-a1",
+    "week": 3,
+    "title": "成績評価",
+    "level": "advanced",
+    "type": "execution",
+    "question": "変数 `score` に 85 を代入し、以下の基準で評価を表示してください。\n- 90以上: \"A\"\n- 70以上: \"B\"\n- 60以上: \"C\"\n- それ以外: \"D\"",
+    "starterCode": "const score = 85;\n// ここにif文を書いてください\n",
+    "answer": "const score = 85;\nif (score >= 90) {\n  console.log(\"A\");\n} else if (score >= 70) {\n  console.log(\"B\");\n} else if (score >= 60) {\n  console.log(\"C\");\n} else {\n  console.log(\"D\");\n}",
+    "explanation": "`else if` を使うことで、複数の条件を順番に評価できます。上から順にチェックされ、最初に一致した条件の処理が実行されます。",
+    "learningPoints": [
+      "else if で複数条件の分岐ができる",
+      "条件は上から順に評価される",
+      "最後の else はどの条件にも当てはまらない場合"
+    ],
+    "hints": [
+      "if → else if → else if → else の順で書きます",
+      "条件は高い方から順に書くとシンプルです"
+    ],
+    "testCases": [
+      { "input": [], "expected": "B" }
+    ]
+  }
+]

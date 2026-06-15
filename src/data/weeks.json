@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "変数とconsole.log",
+    "description": "JavaScriptの基本である変数の宣言と、コンソールへの出力方法を学びます。HTMLの属性やCSSの値と同様に、データを名前で管理する考え方がプログラミングの基礎です。",
+    "topics": ["変数（let, const）", "console.log", "文字列", "コメント"]
+  },
+  {
+    "id": 2,
+    "title": "データ型と演算",
+    "description": "数値・文字列・真偽値などのデータ型と、四則演算・文字列結合を学びます。CSSのcalc()や単位の計算に慣れている方には馴染みやすい内容です。",
+    "topics": ["数値", "文字列", "真偽値", "演算子", "typeof"]
+  },
+  {
+    "id": 3,
+    "title": "条件分岐",
+    "description": "if文を使ってプログラムの流れを制御する方法を学びます。CSSのメディアクエリや疑似クラスのように、条件によって異なる処理を行う考え方です。",
+    "topics": ["if / else", "比較演算子", "論理演算子", "三項演算子"]
+  },
+  {
+    "id": 4,
+    "title": "ループと配列",
+    "description": "配列を使ったデータのまとめ方と、for文・while文による繰り返し処理を学びます。リスト表示や繰り返しレイアウトのプログラム版と考えてみましょう。",
+    "topics": ["配列", "for文", "while文", "配列メソッド（push, length）"]
+  },
+  {
+    "id": 5,
+    "title": "関数の基礎",
+    "description": "再利用可能な処理をまとめる関数の書き方を学びます。Reactのコンポーネントも「関数」として理解できるようになります。",
+    "topics": ["関数宣言", "引数", "戻り値", "アロー関数"]
+  },
+  {
+    "id": 6,
+    "title": "オブジェクト",
+    "description": "キーと値のペアでデータを管理するオブジェクトを学びます。JSONやReactのprops/stateの基礎となります。",
+    "topics": ["オブジェクトリテラル", "プロパティアクセス", "メソッド", "分割代入"]
+  },
+  {
+    "id": 7,
+    "title": "配列メソッド",
+    "description": "map, filter, reduceなどの配列メソッドを学びます。Reactでのリストレンダリングに直結する重要なスキルです。",
+    "topics": ["map", "filter", "reduce", "find", "some"]
+  },
+  {
+    "id": 8,
+    "title": "DOM操作",
+    "description": "JavaScriptでHTMLを動的に操作する方法を学びます。React以前の基礎知識として、ブラウザの仕組みを理解しましょう。",
+    "topics": ["querySelector", "textContent", "classList", "イベントリスナー"]
+  },
+  {
+    "id": 9,
+    "title": "非同期処理の基礎",
+    "description": "setTimeout, Promise, async/awaitの基礎を学びます。API通信やデータ取得の前提知識となります。",
+    "topics": ["コールバック", "Promise", "async/await", "fetch"]
+  },
+  {
+    "id": 10,
+    "title": "ES6+の構文",
+    "description": "テンプレートリテラル、スプレッド構文、分割代入などモダンJavaScriptの構文を学びます。",
+    "topics": ["テンプレートリテラル", "スプレッド", "分割代入", "デフォルト引数"]
+  },
+  {
+    "id": 11,
+    "title": "モジュールとnpm",
+    "description": "import/exportによるモジュール分割と、npmパッケージの使い方を学びます。Reactプロジェクトの構成理解に繋がります。",
+    "topics": ["import/export", "npm", "package.json", "node_modules"]
+  },
+  {
+    "id": 12,
+    "title": "React入門準備",
+    "description": "これまでの知識を総合し、React/Next.jsへ移行するための準備を行います。",
+    "topics": ["JSXの概念", "コンポーネント思考", "状態管理の基礎", "Next.jsプロジェクト構成"]
+  }
+]

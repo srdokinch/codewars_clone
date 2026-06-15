@@ -1,0 +1,94 @@
+[
+  {
+    "id": "w4-b1",
+    "week": 4,
+    "title": "配列の要素を表示",
+    "level": "basic",
+    "type": "execution",
+    "question": "配列 `fruits` に [\"りんご\", \"バナナ\", \"みかん\"] を代入し、最初の要素（インデックス0）を `console.log` で表示してください。",
+    "starterCode": "// ここにコードを書いてください\n",
+    "answer": "const fruits = [\"りんご\", \"バナナ\", \"みかん\"];\nconsole.log(fruits[0]);",
+    "explanation": "配列は `[]` で作成し、インデックス（0から始まる番号）で要素にアクセスします。HTMLのリスト項目を配列で管理するイメージです。",
+    "learningPoints": [
+      "配列は [] で作成する",
+      "インデックスは 0 から始まる",
+      "array[0] で最初の要素にアクセスできる"
+    ],
+    "hints": [
+      "const fruits = [\"りんご\", \"バナナ\", \"みかん\"]; で配列を作ります",
+      "fruits[0] で最初の要素を取得できます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "りんご" }
+    ]
+  },
+  {
+    "id": "w4-b2",
+    "week": 4,
+    "title": "for文で繰り返し",
+    "level": "basic",
+    "type": "execution",
+    "question": "for文を使って 1 から 3 までを順番に `console.log` で表示してください。",
+    "starterCode": "// ここにコードを書いてください\n",
+    "answer": "for (let i = 1; i <= 3; i++) {\n  console.log(i);\n}",
+    "explanation": "`for (初期化; 条件; 更新)` の3つの部分で繰り返しを制御します。CSSの `@for` ループ（Sass）と似た考え方です。",
+    "learningPoints": [
+      "for文の3つの部分：初期化・条件・更新",
+      "let は再代入可能な変数を宣言する",
+      "i++ は i を1増やす（インクリメント）"
+    ],
+    "hints": [
+      "for (let i = 1; i <= 3; i++) { ... } の形式です",
+      "ループ内で console.log(i); を呼びます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "1\n2\n3" }
+    ]
+  },
+  {
+    "id": "w4-b3",
+    "week": 4,
+    "title": "配列の長さ",
+    "level": "basic",
+    "type": "execution",
+    "question": "配列 `colors` に [\"red\", \"green\", \"blue\", \"yellow\"] を代入し、配列の要素数を `console.log` で表示してください。",
+    "starterCode": "// ここにコードを書いてください\n",
+    "answer": "const colors = [\"red\", \"green\", \"blue\", \"yellow\"];\nconsole.log(colors.length);",
+    "explanation": "配列の `.length` プロパティで要素数を取得できます。リストの項目数を数える操作と同じです。",
+    "learningPoints": [
+      ".length で配列の要素数を取得できる",
+      "length はプロパティ（関数ではない）",
+      "空配列の length は 0"
+    ],
+    "hints": [
+      "colors.length で要素数がわかります",
+      "console.log(colors.length); で表示しましょう"
+    ],
+    "testCases": [
+      { "input": [], "expected": "4" }
+    ]
+  },
+  {
+    "id": "w4-a1",
+    "week": 4,
+    "title": "配列の合計を求める",
+    "level": "advanced",
+    "type": "execution",
+    "question": "配列 `numbers` に [10, 20, 30, 40] を代入し、for文を使って全要素の合計を計算し表示してください。",
+    "starterCode": "const numbers = [10, 20, 30, 40];\n// ここにコードを書いてください\n",
+    "answer": "const numbers = [10, 20, 30, 40];\nlet sum = 0;\nfor (let i = 0; i < numbers.length; i++) {\n  sum += numbers[i];\n}\nconsole.log(sum);",
+    "explanation": "ループと変数を組み合わせて、配列の全要素を処理する典型的なパターンです。Reactでリストの合計を計算する際にも同じ考え方を使います。",
+    "learningPoints": [
+      "let sum = 0; で累積用の変数を用意する",
+      "sum += numbers[i]; で加算を繰り返す",
+      "numbers.length を使ってループ回数を決める"
+    ],
+    "hints": [
+      "let sum = 0; で合計を蓄積する変数を作ります",
+      "for文で numbers[i] を sum に足していきます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "100" }
+    ]
+  }
+]

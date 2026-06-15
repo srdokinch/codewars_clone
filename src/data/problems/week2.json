@@ -1,0 +1,94 @@
+[
+  {
+    "id": "w2-b1",
+    "week": 2,
+    "title": "足し算をしよう",
+    "level": "basic",
+    "type": "execution",
+    "question": "変数 `a` に 10、変数 `b` に 20 を代入し、足し算の結果を `console.log` で表示してください。",
+    "starterCode": "// ここにコードを書いてください\n",
+    "answer": "const a = 10;\nconst b = 20;\nconsole.log(a + b);",
+    "explanation": "JavaScriptでは `+` `-` `*` `/` `%`（剰余）などの算術演算子が使えます。CSSの `calc()` と同様に、変数を使った計算が可能です。",
+    "learningPoints": [
+      "算術演算子で数値計算ができる",
+      "変数を使った式をconsole.logに渡せる",
+      "console.log(30) と console.log(a + b) は同じ結果"
+    ],
+    "hints": [
+      "const a = 10; const b = 20; で変数を用意します",
+      "console.log(a + b); で計算結果を表示します"
+    ],
+    "testCases": [
+      { "input": [], "expected": "30" }
+    ]
+  },
+  {
+    "id": "w2-b2",
+    "week": 2,
+    "title": "真偽値を確認",
+    "level": "basic",
+    "type": "execution",
+    "question": "変数 `isActive` に `true` を代入し、`console.log(isActive)` で表示してください。",
+    "starterCode": "// ここにコードを書いてください\n",
+    "answer": "const isActive = true;\nconsole.log(isActive);",
+    "explanation": "真偽値（boolean）は `true` または `false` の2つの値だけを持ちます。CSSの `:checked` や `[disabled]` のように、状態を表すのに使われます。",
+    "learningPoints": [
+      "boolean型は true / false の2値",
+      "クォートで囲まない（\"true\" は文字列になる）",
+      "条件分岐の基礎となるデータ型"
+    ],
+    "hints": [
+      "true はクォートで囲みません",
+      "const isActive = true; と書きます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "true" }
+    ]
+  },
+  {
+    "id": "w2-b3",
+    "week": 2,
+    "title": "データ型を調べよう",
+    "level": "basic",
+    "type": "execution",
+    "question": "変数 `value` に 42 を代入し、`typeof value` の結果を `console.log` で表示してください。",
+    "starterCode": "// ここにコードを書いてください\n",
+    "answer": "const value = 42;\nconsole.log(typeof value);",
+    "explanation": "`typeof` 演算子は値のデータ型を文字列で返します。数値は `\"number\"`、文字列は `\"string\"`、真偽値は `\"boolean\"` となります。",
+    "learningPoints": [
+      "typeof でデータ型を確認できる",
+      "数値の型名は \"number\"",
+      "デバッグ時に型を確認する習慣をつけよう"
+    ],
+    "hints": [
+      "typeof は演算子です。typeof value のように使います",
+      "console.log(typeof value); で型名が表示されます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "number" }
+    ]
+  },
+  {
+    "id": "w2-a1",
+    "week": 2,
+    "title": "消費税込み価格",
+    "level": "advanced",
+    "type": "execution",
+    "question": "変数 `price` に 1000（税抜価格）を代入し、消費税10%を加えた税込価格を計算して表示してください。",
+    "starterCode": "// ここにコードを書いてください\n",
+    "answer": "const price = 1000;\nconsole.log(price * 1.1);",
+    "explanation": "実務でもよく使う計算パターンです。`price * 1.1` は10%増し、`Math.floor(price * 1.1)` で切り捨てもできます。CSSのcalc(1000px * 1.1)と同じ考え方です。",
+    "learningPoints": [
+      "パーセント計算は小数で表現する（10% = 0.1）",
+      "乗算で税込価格を算出できる",
+      "実務的な計算ロジックの基礎"
+    ],
+    "hints": [
+      "10%増しは元の値 × 1.1 です",
+      "console.log(price * 1.1); で税込価格が表示されます"
+    ],
+    "testCases": [
+      { "input": [], "expected": "1100" }
+    ]
+  }
+]
