@@ -5,7 +5,7 @@
     "title": "名前を表示しよう",
     "level": "basic",
     "type": "execution",
-    "question": "変数 `name` に自分の名前（例: \"田中\"）を代入し、`console.log` で表示してください。",
+    "question": "変数 `name` に \"田中\" を代入し、`console.log` で表示してください。",
     "starterCode": "// ここにコードを書いてください\n",
     "answer": "const name = \"田中\";\nconsole.log(name);",
     "explanation": "`const` は再代入できない定数を宣言するキーワードです。`console.log()` はブラウザの開発者ツールやターミナルに値を出力します。HTMLコーダーの方にとっては、デバッグ用の出力手段と考えてください。",
@@ -15,7 +15,7 @@
       "文字列はダブルクォート \" \" で囲む"
     ],
     "hints": [
-      "const name = \"あなたの名前\"; の形式で変数を宣言します",
+      "const name = \"田中\"; の形式で変数を宣言します",
       "console.log(name); で変数の中身を表示できます"
     ],
     "testCases": [
@@ -74,7 +74,7 @@
     "title": "自己紹介文を作ろう",
     "level": "advanced",
     "type": "execution",
-    "question": "変数 `name` に \"山田\"、変数 `job` に \"コーダー\" を代入し、\n`console.log(name + \"は\" + job + \"です\");` の形式で自己紹介文を1行で表示してください。",
+    "question": "変数 `name` に \"山田\"、変数 `job` に \"コーダー\" を代入し、`+` 演算子で文字列を連結して「山田はコーダーです」と1行で表示してください。",
     "starterCode": "// ここにコードを書いてください\n",
     "answer": "const name = \"山田\";\nconst job = \"コーダー\";\nconsole.log(name + \"は\" + job + \"です\");",
     "explanation": "`+` 演算子で文字列を連結（結合）できます。これはCSSの値を組み合わせる感覚に近い操作です。後のWeekではテンプレートリテラルというより便利な方法も学びます。",
@@ -85,7 +85,7 @@
     ],
     "hints": [
       "文字列同士は + でつなげられます",
-      "name + \"は\" + job + \"です\" の形式を使いましょう"
+      "console.log(name + \"は\" + job + \"です\"); のように書けます"
     ],
     "testCases": [
       { "input": [], "expected": "山田はコーダーです" }

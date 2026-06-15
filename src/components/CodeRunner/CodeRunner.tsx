@@ -22,7 +22,6 @@ export default function CodeRunner({
     setIsRunning(true);
     setResult(null);
 
-    // UIの応答性のためわずかに遅延
     setTimeout(() => {
       const runResult = runCode(code, problem);
       setResult(runResult);
