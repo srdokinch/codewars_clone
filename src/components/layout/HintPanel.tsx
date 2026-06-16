@@ -58,7 +58,7 @@ export default function HintPanel({ problem, isSolved }: HintPanelProps) {
               <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-codewars-success">
                 模範回答
               </h3>
-              <pre className="overflow-x-auto rounded-md border border-codewars-border bg-[#0d1117] p-3 font-mono text-xs leading-relaxed text-codewars-success">
+              <pre className="overflow-x-auto rounded-md border border-codewars-border bg-codewars-editor p-3 font-mono text-xs leading-relaxed text-codewars-success">
                 {problem.answer}
               </pre>
             </section>
@@ -96,7 +96,7 @@ export default function HintPanel({ problem, isSolved }: HintPanelProps) {
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-codewars-muted">
               解説
             </h3>
-            <p className="text-sm italic text-codewars-muted/60">
+            <p className="text-sm italic text-codewars-disabled">
               正解すると解説が表示されます
             </p>
           </section>

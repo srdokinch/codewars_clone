@@ -10,15 +10,18 @@ const config: Config = {
     extend: {
       colors: {
         codewars: {
-          bg: "#1a1a2e",
-          surface: "#16213e",
-          panel: "#0f3460",
-          accent: "#e94560",
-          success: "#4ecca3",
-          warning: "#f0a500",
-          text: "#eaeaea",
-          muted: "#8b8b9e",
-          border: "#2a2a4a",
+          bg: "rgb(var(--cw-bg) / <alpha-value>)",
+          surface: "rgb(var(--cw-surface) / <alpha-value>)",
+          panel: "rgb(var(--cw-panel) / <alpha-value>)",
+          accent: "rgb(var(--cw-accent) / <alpha-value>)",
+          success: "rgb(var(--cw-success) / <alpha-value>)",
+          warning: "rgb(var(--cw-warning) / <alpha-value>)",
+          text: "rgb(var(--cw-text) / <alpha-value>)",
+          muted: "rgb(var(--cw-muted) / <alpha-value>)",
+          disabled: "rgb(var(--cw-disabled) / <alpha-value>)",
+          "on-accent": "rgb(var(--cw-on-accent) / <alpha-value>)",
+          border: "rgb(var(--cw-border) / <alpha-value>)",
+          editor: "rgb(var(--cw-editor) / <alpha-value>)",
         },
       },
       fontFamily: {

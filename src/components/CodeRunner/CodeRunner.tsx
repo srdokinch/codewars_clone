@@ -38,7 +38,7 @@ export default function CodeRunner({
       <button
         onClick={handleRun}
         disabled={isRunning}
-        className="w-full rounded-md bg-codewars-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full rounded-md bg-codewars-accent px-6 py-3 font-semibold text-white [html.dark_&]:text-codewars-bg transition-colors hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isRunning ? "実行中..." : "実行する"}
       </button>

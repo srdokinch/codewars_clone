@@ -76,7 +76,7 @@ export default function ProblemWorkspace({
               </p>
               <Link
                 href={`/week/${problem.week}/${nextProblem.id}`}
-                className="inline-block rounded-md bg-codewars-success px-4 py-2 text-sm font-semibold text-codewars-bg transition-colors hover:bg-green-400"
+                className="inline-block rounded-md bg-codewars-success px-4 py-2 text-sm font-semibold text-codewars-bg transition-colors hover:brightness-95"
               >
                 次の問題: {nextProblem.title} →
               </Link>

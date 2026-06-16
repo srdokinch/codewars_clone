@@ -1,8 +1,8 @@
 import type { ProblemLevel } from "@/types";
 
 const levelStyles: Record<ProblemLevel, string> = {
-  basic: "bg-codewars-panel text-blue-300",
-  advanced: "bg-codewars-accent/20 text-codewars-accent",
+  basic: "bg-codewars-panel text-codewars-text",
+  advanced: "bg-codewars-panel text-codewars-accent",
 };
 
 const levelLabels: Record<ProblemLevel, string> = {

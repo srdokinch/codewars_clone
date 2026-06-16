@@ -5,6 +5,57 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap");
 
 @layer base {
+  :root {
+    color-scheme: dark;
+    --cw-bg: 26 26 46;
+    --cw-surface: 22 33 62;
+    --cw-panel: 15 52 96;
+    --cw-accent: 255 107 138;
+    --cw-success: 78 204 163;
+    --cw-warning: 240 165 0;
+    --cw-text: 234 234 234;
+    --cw-muted: 157 160 184;
+    --cw-disabled: 134 137 160;
+    --cw-on-accent: 26 26 46;
+    --cw-border: 42 42 74;
+    --cw-editor: 13 17 23;
+    --cw-scrollbar: 42 42 74;
+  }
+
+  html.light {
+    color-scheme: light;
+    --cw-bg: 235 239 245;
+    --cw-surface: 243 246 250;
+    --cw-panel: 218 225 234;
+    --cw-accent: 166 30 63;
+    --cw-success: 6 95 70;
+    --cw-warning: 180 83 9;
+    --cw-text: 30 41 59;
+    --cw-muted: 79 91 110;
+    --cw-disabled: 95 107 122;
+    --cw-on-accent: 255 255 255;
+    --cw-border: 208 215 226;
+    --cw-editor: 232 236 242;
+    --cw-scrollbar: 192 200 213;
+  }
+
+  html.dark {
+    color-scheme: dark;
+    --cw-bg: 26 26 46;
+    --cw-surface: 22 33 62;
+    --cw-panel: 15 52 96;
+    --cw-accent: 255 107 138;
+    --cw-success: 78 204 163;
+    --cw-warning: 240 165 0;
+    --cw-text: 234 234 234;
+    --cw-muted: 157 160 184;
+    --cw-disabled: 134 137 160;
+    --cw-on-accent: 26 26 46;
+    --cw-border: 42 42 74;
+    --cw-editor: 13 17 23;
+    --cw-scrollbar: 42 42 74;
+  }
+
   body {
     @apply bg-codewars-bg text-codewars-text antialiased;
     font-family: "Inter", sans-serif;
@@ -14,7 +65,7 @@
 @layer utilities {
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: #2a2a4a transparent;
+    scrollbar-color: rgb(var(--cw-scrollbar)) transparent;
   }
 
   .scrollbar-thin::-webkit-scrollbar {
@@ -26,7 +77,7 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: #2a2a4a;
+    background-color: rgb(var(--cw-scrollbar));
     border-radius: 3px;
   }
 }

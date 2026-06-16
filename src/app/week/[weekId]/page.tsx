@@ -129,7 +129,7 @@ export default async function WeekPage({ params }: WeekPageProps) {
                     href={`/week/${weekNum}/${problem.id}`}
                     className="flex items-center gap-4 rounded-md border border-codewars-accent/20 bg-codewars-surface px-5 py-4 transition-colors hover:border-codewars-accent/50 hover:bg-codewars-accent/5"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-codewars-accent/20 font-mono text-sm text-codewars-accent">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-codewars-panel font-mono text-sm text-codewars-accent">
                       ★
                     </span>
                     <div className="flex-1">

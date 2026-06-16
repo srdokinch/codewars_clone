@@ -28,7 +28,7 @@ export default function WeekSidebar({ currentWeek }: { currentWeek?: number }) {
             if (!isAvailable) {
               return (
                 <li key={week.id}>
-                  <span className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-codewars-muted/50">
+                  <span className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-codewars-disabled">
                     <span className="w-6 text-xs">W{week.id}</span>
                     <span className="truncate">{week.title}</span>
                     <span className="ml-auto text-xs">準備中</span>

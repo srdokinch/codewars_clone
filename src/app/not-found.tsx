@@ -8,7 +8,7 @@ export default function NotFound() {
         <p className="mt-4 text-codewars-muted">ページが見つかりません</p>
         <Link
           href="/"
-          className="mt-6 inline-block rounded-md bg-codewars-accent px-6 py-2 text-sm font-semibold text-white hover:bg-red-600"
+          className="mt-6 inline-block rounded-md bg-codewars-accent px-6 py-2 text-sm font-semibold text-codewars-on-accent hover:brightness-95"
         >
           ホームに戻る
         </Link>
