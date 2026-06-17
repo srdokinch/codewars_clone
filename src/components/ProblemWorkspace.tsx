@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Problem } from "@/types";
 import CodeEditor from "@/components/editor/CodeEditor";
 import CodeRunner from "@/components/CodeRunner/CodeRunner";
 import HintPanel from "@/components/layout/HintPanel";
 import LevelBadge from "@/components/ui/LevelBadge";
+import {
+  getProblemProgress,
+  PROGRESS_CLEARED_EVENT,
+  saveProblemProgress,
+} from "@/lib/progress";
 
 interface ProblemWorkspaceProps {
   problem: Problem;
@@ -19,9 +24,52 @@ export default function ProblemWorkspace({
 }: ProblemWorkspaceProps) {
   const [code, setCode] = useState(problem.starterCode);
   const [isSolved, setIsSolved] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const currentIndex = problems.findIndex((p) => p.id === problem.id);
   const nextProblem = problems[currentIndex + 1];
+
+  useEffect(() => {
+    const saved = getProblemProgress(problem.id);
+    setCode(saved?.code ?? problem.starterCode);
+    setIsSolved(saved?.isSolved ?? false);
+    setIsLoaded(true);
+  }, [problem.id, problem.starterCode]);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (code === problem.starterCode && !isSolved) return;
+
+    const timer = setTimeout(() => {
+      saveProblemProgress(problem.id, { code });
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+      if (code !== problem.starterCode || isSolved) {
+        saveProblemProgress(problem.id, {
+          code,
+          ...(isSolved ? { isSolved: true } : {}),
+        });
+      }
+    };
+  }, [code, problem.id, problem.starterCode, isSolved, isLoaded]);
+
+  useEffect(() => {
+    if (!isLoaded || !isSolved) return;
+    saveProblemProgress(problem.id, { isSolved: true, code });
+  }, [isSolved, problem.id, isLoaded, code]);
+
+  useEffect(() => {
+    const handleProgressCleared = () => {
+      setCode(problem.starterCode);
+      setIsSolved(false);
+    };
+
+    window.addEventListener(PROGRESS_CLEARED_EVENT, handleProgressCleared);
+    return () =>
+      window.removeEventListener(PROGRESS_CLEARED_EVENT, handleProgressCleared);
+  }, [problem.id, problem.starterCode]);
 
   return (
     <>

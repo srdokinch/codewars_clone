@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import SettingsLink from "@/components/layout/SettingsLink";
 import ThemeToggleBar from "@/components/theme/ThemeToggleBar";
 import "./globals.css";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         </Script>
         <ThemeProvider>
           <ThemeToggleBar />
+          <SettingsLink />
           {children}
         </ThemeProvider>
       </body>
