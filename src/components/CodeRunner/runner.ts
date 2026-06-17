@@ -2,7 +2,7 @@ import type { Problem, RunResult, VariableCheck } from "@/types";
 
 export interface CodeRunnerStrategy {
   type: Problem["type"];
-  run: (code: string, problem: Problem) => RunResult;
+  run: (code: string, problem: Problem) => RunResult | Promise<RunResult>;
 }
 
 function formatValue(value: unknown): string {
@@ -211,8 +211,11 @@ export function runExecutionCode(
   };
 }
 
-/** 関数をテストケースで検証する */
-export function runTestCode(code: string, problem: Problem): RunResult {
+/** 関数をテストケースで検証する（async 関数にも対応） */
+export async function runTestCode(
+  code: string,
+  problem: Problem
+): Promise<RunResult> {
   const functionName = problem.functionName;
 
   if (!functionName) {
@@ -246,29 +249,34 @@ export function runTestCode(code: string, problem: Problem): RunResult {
     };
   }
 
-  const testResults = problem.testCases.map((testCase) => {
-    try {
-      const actual = userFunction(...testCase.input);
-      const passed = valuesEqual(actual, testCase.expected);
+  const testResults = await Promise.all(
+    problem.testCases.map(async (testCase) => {
+      try {
+        let actual = userFunction(...testCase.input);
+        if (actual instanceof Promise) {
+          actual = await actual;
+        }
+        const passed = valuesEqual(actual, testCase.expected);
 
-      return {
-        passed,
-        input: testCase.input,
-        expected: testCase.expected,
-        actual,
-        description: testCase.description,
-      };
-    } catch (error) {
-      return {
-        passed: false,
-        input: testCase.input,
-        expected: testCase.expected,
-        actual: undefined,
-        description: testCase.description,
-        error: error instanceof Error ? error.message : String(error),
-      };
-    }
-  });
+        return {
+          passed,
+          input: testCase.input,
+          expected: testCase.expected,
+          actual,
+          description: testCase.description,
+        };
+      } catch (error) {
+        return {
+          passed: false,
+          input: testCase.input,
+          expected: testCase.expected,
+          actual: undefined,
+          description: testCase.description,
+          error: error instanceof Error ? error.message : String(error),
+        };
+      }
+    })
+  );
 
   const allPassed = testResults.every((r) => r.passed);
 
@@ -290,7 +298,10 @@ const strategies: Record<Problem["type"], CodeRunnerStrategy["run"]> = {
   test: runTestCode,
 };
 
-export function runCode(code: string, problem: Problem): RunResult {
+export async function runCode(
+  code: string,
+  problem: Problem
+): Promise<RunResult> {
   const strategy = strategies[problem.type];
   if (!strategy) {
     return {

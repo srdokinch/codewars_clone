@@ -1,0 +1,184 @@
+[
+  {
+    "id": "w5-b1",
+    "week": 5,
+    "title": "挨拶を返す関数",
+    "level": "basic",
+    "section": "関数宣言編",
+    "type": "test",
+    "functionName": "greet",
+    "question": "関数 `greet` を作成してください。引数はなく、戻り値は \"こんにちは\" です。",
+    "starterCode": "function greet() {\n  \n}\n",
+    "answer": "function greet() {\n  return \"こんにちは\";\n}",
+    "explanation": "`function 関数名() { }` で関数を宣言します。`return` で呼び出し元に値を返せます。同じ処理を何度も使うときに便利です。",
+    "learningPoints": [
+      "function キーワードで関数を宣言できる",
+      "return で戻り値を返す",
+      "引数がない関数も作れる"
+    ],
+    "hints": [
+      "function greet() { ... } の形で書きます",
+      "return \"こんにちは\"; で文字列を返します"
+    ],
+    "testCases": [
+      { "input": [], "expected": "こんにちは" }
+    ]
+  },
+  {
+    "id": "w5-b2",
+    "week": 5,
+    "title": "2つの数を足す",
+    "level": "basic",
+    "section": "関数宣言編",
+    "type": "test",
+    "functionName": "add",
+    "question": "関数 `add` を作成してください。2つの数値 `a` と `b` を受け取り、足し算の結果を返します。",
+    "starterCode": "function add(a, b) {\n  \n}\n",
+    "answer": "function add(a, b) {\n  return a + b;\n}",
+    "explanation": "関数の `( )` 内に引数を書きます。呼び出すときに渡した値が、関数内の変数として使えます。",
+    "learningPoints": [
+      "関数は引数を受け取れる",
+      "引数は関数内の変数として使える",
+      "return で計算結果を返せる"
+    ],
+    "hints": [
+      "function add(a, b) { ... } と引数を2つ受け取ります",
+      "return a + b; で足し算結果を返します"
+    ],
+    "testCases": [
+      { "input": [10, 20], "expected": 30 },
+      { "input": [3, 7], "expected": 10 }
+    ]
+  },
+  {
+    "id": "w5-b3",
+    "week": 5,
+    "title": "文字列を連結する",
+    "level": "basic",
+    "section": "関数宣言編",
+    "type": "test",
+    "functionName": "joinWords",
+    "question": "関数 `joinWords` を作成してください。2つの文字列 `a` と `b` を受け取り、`a + \" \" + b` の形で連結した文字列を返します。",
+    "starterCode": "function joinWords(a, b) {\n  \n}\n",
+    "answer": "function joinWords(a, b) {\n  return a + \" \" + b;\n}",
+    "explanation": "関数は数値だけでなく文字列の処理にも使えます。`+` で文字列を連結できます。",
+    "learningPoints": [
+      "文字列も引数として渡せる",
+      "+ で文字列を連結できる",
+      "スペースを挟むと見やすい文字列になる"
+    ],
+    "hints": [
+      "return a + \" \" + b; のように書きます",
+      "文字列の間にスペースを入れましょう"
+    ],
+    "testCases": [
+      { "input": ["Hello", "World"], "expected": "Hello World" },
+      { "input": ["HTML", "CSS"], "expected": "HTML CSS" }
+    ]
+  },
+  {
+    "id": "w5-b4",
+    "week": 5,
+    "title": "2倍にする（アロー関数）",
+    "level": "basic",
+    "section": "アロー関数編",
+    "type": "test",
+    "functionName": "double",
+    "question": "アロー関数 `double` を作成してください。数値 `n` を受け取り、2倍した値を返します。",
+    "starterCode": "const double = (n) => {\n  \n};\n",
+    "answer": "const double = (n) => {\n  return n * 2;\n};",
+    "explanation": "アロー関数は `const 名前 = (引数) => { }` の形で書けます。短く書けるモダンな関数の書き方です。",
+    "learningPoints": [
+      "アロー関数は => を使う",
+      "const で関数を変数に代入できる",
+      "function と同様に return で値を返せる"
+    ],
+    "hints": [
+      "const double = (n) => { ... }; の形です",
+      "return n * 2; で2倍の値を返します"
+    ],
+    "testCases": [
+      { "input": [5], "expected": 10 },
+      { "input": [12], "expected": 24 }
+    ]
+  },
+  {
+    "id": "w5-b5",
+    "week": 5,
+    "title": "正の数かどうか",
+    "level": "basic",
+    "section": "アロー関数編",
+    "type": "test",
+    "functionName": "isPositive",
+    "question": "アロー関数 `isPositive` を作成してください。数値 `n` が 0 より大きければ `true`、そうでなければ `false` を返します。",
+    "starterCode": "const isPositive = (n) => {\n  \n};\n",
+    "answer": "const isPositive = (n) => {\n  return n > 0;\n};",
+    "explanation": "比較演算子の結果は真偽値になります。`return n > 0` のように、条件式をそのまま返す書き方がよく使われます。",
+    "learningPoints": [
+      "比較演算の結果は true / false",
+      "アロー関数でも真偽値を返せる",
+      "return に条件式を直接書ける"
+    ],
+    "hints": [
+      "n > 0 が true になる条件です",
+      "return n > 0; と書けます"
+    ],
+    "testCases": [
+      { "input": [5], "expected": true },
+      { "input": [0], "expected": false },
+      { "input": [-3], "expected": false }
+    ]
+  },
+  {
+    "id": "w5-b6",
+    "week": 5,
+    "title": "名前で挨拶する",
+    "level": "basic",
+    "section": "アロー関数編",
+    "type": "test",
+    "functionName": "greetUser",
+    "question": "アロー関数 `greetUser` を作成してください。文字列 `name` を受け取り、`こんにちは、${name}さん` という文字列を返します（テンプレートリテラルを使う）。",
+    "starterCode": "const greetUser = (name) => {\n  \n};\n",
+    "answer": "const greetUser = (name) => {\n  return `こんにちは、${name}さん`;\n};",
+    "explanation": "テンプレートリテラル（バッククォート）と `${}` を使うと、文字列の中に変数を埋め込めます。",
+    "learningPoints": [
+      "テンプレートリテラルは ` で囲む",
+      "${変数} で値を埋め込める",
+      "アロー関数と組み合わせて使える"
+    ],
+    "hints": [
+      "return `こんにちは、${name}さん`; の形です",
+      "文字列はバッククォート ` で囲みます"
+    ],
+    "testCases": [
+      { "input": ["太郎"], "expected": "こんにちは、太郎さん" },
+      { "input": ["花子"], "expected": "こんにちは、花子さん" }
+    ]
+  },
+  {
+    "id": "w5-a1",
+    "week": 5,
+    "title": "四則演算関数",
+    "level": "advanced",
+    "type": "test",
+    "functionName": "calc",
+    "question": "関数 `calc` を作成してください。数値 `a`、演算子（\"+\" または \"-\" の文字列）、数値 `b` を受け取り、計算結果を返します。",
+    "starterCode": "function calc(a, operator, b) {\n  \n}\n",
+    "answer": "function calc(a, operator, b) {\n  if (operator === \"+\") {\n    return a + b;\n  }\n  if (operator === \"-\") {\n    return a - b;\n  }\n  return 0;\n}",
+    "explanation": "関数の中で if 文を使い、引数の値によって処理を分岐できます。再利用可能な計算ロジックをまとめる応用例です。",
+    "learningPoints": [
+      "関数内で条件分岐ができる",
+      "引数で処理内容を切り替えられる",
+      "複数の演算を1つの関数にまとめられる"
+    ],
+    "hints": [
+      "if (operator === \"+\") { return a + b; } のように書きます",
+      "else if で \"-\" の場合も処理しましょう"
+    ],
+    "testCases": [
+      { "input": [10, "+", 5], "expected": 15 },
+      { "input": [10, "-", 3], "expected": 7 },
+      { "input": [8, "-", 8], "expected": 0 }
+    ]
+  }
+]

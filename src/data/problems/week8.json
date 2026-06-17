@@ -1,0 +1,200 @@
+[
+  {
+    "id": "w8-b1",
+    "week": 8,
+    "title": "テキストを取得する",
+    "level": "basic",
+    "section": "テキストとクラス編",
+    "type": "test",
+    "functionName": "getText",
+    "question": "関数 `getText` を作成してください。DOM要素を模したオブジェクト `el`（`textContent` プロパティを持つ）を受け取り、`el.textContent` を返します。",
+    "starterCode": "function getText(el) {\n  \n}\n",
+    "answer": "function getText(el) {\n  return el.textContent;\n}",
+    "explanation": "実際の DOM では `element.textContent` で要素内のテキストを取得します。ここでは同じプロパティを持つオブジェクトで練習します。",
+    "learningPoints": [
+      "textContent でテキストを取得する考え方",
+      "DOM要素はオブジェクトとして扱える",
+      "プロパティアクセスの練習になる"
+    ],
+    "hints": [
+      "return el.textContent; と書きます",
+      "el は { textContent: \"...\" } の形です"
+    ],
+    "testCases": [
+      { "input": [{ "textContent": "Hello" }], "expected": "Hello" },
+      { "input": [{ "textContent": "JavaScript" }], "expected": "JavaScript" }
+    ]
+  },
+  {
+    "id": "w8-b2",
+    "week": 8,
+    "title": "テキストを書き換える",
+    "level": "basic",
+    "section": "テキストとクラス編",
+    "type": "test",
+    "functionName": "setText",
+    "question": "関数 `setText` を作成してください。要素オブジェクト `el` と文字列 `text` を受け取り、`el.textContent` を `text` に書き換えて、更新後の `el.textContent` を返します。",
+    "starterCode": "function setText(el, text) {\n  \n}\n",
+    "answer": "function setText(el, text) {\n  el.textContent = text;\n  return el.textContent;\n}",
+    "explanation": "DOM操作では `element.textContent = \"新しい文字\"` で表示テキストを変更できます。動的にページ内容を更新する基本操作です。",
+    "learningPoints": [
+      "textContent に代入するとテキストを変更できる",
+      "DOMの表示内容をプログラムで更新できる",
+      "代入後の値を返して確認できる"
+    ],
+    "hints": [
+      "el.textContent = text; で書き換えます",
+      "return el.textContent; で結果を返します"
+    ],
+    "testCases": [
+      {
+        "input": [{ "textContent": "旧テキスト" }, "新テキスト"],
+        "expected": "新テキスト"
+      }
+    ]
+  },
+  {
+    "id": "w8-b3",
+    "week": 8,
+    "title": "クラスを持っているか確認",
+    "level": "basic",
+    "section": "テキストとクラス編",
+    "type": "test",
+    "functionName": "hasClass",
+    "question": "関数 `hasClass` を作成してください。要素オブジェクト `el`（`classes` 配列を持つ）と文字列 `className` を受け取り、そのクラスが含まれていれば `true`、なければ `false` を返します（`includes` を使う）。",
+    "starterCode": "function hasClass(el, className) {\n  \n}\n",
+    "answer": "function hasClass(el, className) {\n  return el.classes.includes(className);\n}",
+    "explanation": "実際の DOM では `element.classList.contains(\"active\")` でクラスの有無を確認します。ここでは `classes` 配列で同じ考え方を練習します。",
+    "learningPoints": [
+      "クラス名で要素の状態を管理する",
+      "includes で配列内の存在を確認できる",
+      "CSSクラスの付け外しの基礎"
+    ],
+    "hints": [
+      "return el.classes.includes(className); と書きます",
+      "el.classes は [\"active\", \"open\"] のような配列です"
+    ],
+    "testCases": [
+      {
+        "input": [{ "classes": ["active", "open"] }, "active"],
+        "expected": true
+      },
+      {
+        "input": [{ "classes": ["menu"] }, "active"],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "w8-b4",
+    "week": 8,
+    "title": "クラスを追加する",
+    "level": "basic",
+    "section": "イベント編",
+    "type": "test",
+    "functionName": "addClass",
+    "question": "関数 `addClass` を作成してください。要素オブジェクト `el`（`classes` 配列を持つ）と文字列 `className` を受け取り、`classes` にクラスを追加したあとの配列を返します（`push` を使う）。",
+    "starterCode": "function addClass(el, className) {\n  \n}\n",
+    "answer": "function addClass(el, className) {\n  el.classes.push(className);\n  return el.classes;\n}",
+    "explanation": "DOM では `classList.add(\"active\")` でクラスを追加します。クラスの追加により CSS の見た目を切り替えられます。",
+    "learningPoints": [
+      "push で配列にクラス名を追加できる",
+      "クラス追加で見た目や状態を変えられる",
+      "DOMの classList.add に相当する操作"
+    ],
+    "hints": [
+      "el.classes.push(className); で追加します",
+      "return el.classes; で更新後の配列を返します"
+    ],
+    "testCases": [
+      {
+        "input": [{ "classes": ["menu"] }, "active"],
+        "expected": ["menu", "active"]
+      }
+    ]
+  },
+  {
+    "id": "w8-b5",
+    "week": 8,
+    "title": "クラスを削除する",
+    "level": "basic",
+    "section": "イベント編",
+    "type": "test",
+    "functionName": "removeClass",
+    "question": "関数 `removeClass` を作成してください。要素オブジェクト `el` と文字列 `className` を受け取り、一致するクラスを `classes` から取り除いた新しい配列を返します（`filter` を使い、元の `el.classes` は変更しない）。",
+    "starterCode": "function removeClass(el, className) {\n  \n}\n",
+    "answer": "function removeClass(el, className) {\n  return el.classes.filter((cls) => cls !== className);\n}",
+    "explanation": "DOM では `classList.remove(\"active\")` でクラスを外します。filter を使えば、指定クラス以外だけを残した新しい配列を作れます。",
+    "learningPoints": [
+      "filter で特定の値を除外できる",
+      "元の配列を壊さずに新しい配列を返せる",
+      "classList.remove の考え方に対応する"
+    ],
+    "hints": [
+      "return el.classes.filter((cls) => cls !== className); と書きます",
+      "cls !== className の要素だけ残します"
+    ],
+    "testCases": [
+      {
+        "input": [{ "classes": ["menu", "active", "open"] }, "active"],
+        "expected": ["menu", "open"]
+      }
+    ]
+  },
+  {
+    "id": "w8-b6",
+    "week": 8,
+    "title": "イベント名を処理する",
+    "level": "basic",
+    "section": "イベント編",
+    "type": "test",
+    "functionName": "handleEvent",
+    "question": "関数 `handleEvent` を作成してください。文字列 `eventName` を受け取り、`イベント: ${eventName}` という文字列を返します（クリックなどのイベント名を処理する想定）。",
+    "starterCode": "function handleEvent(eventName) {\n  \n}\n",
+    "answer": "function handleEvent(eventName) {\n  return `イベント: ${eventName}`;\n}",
+    "explanation": "イベント処理では、どのイベント（click, submit など）が発生したかを文字列で受け取り、それに応じた処理を行います。ここではイベント名を整形して返す基本を練習します。",
+    "learningPoints": [
+      "イベント名は文字列として扱う",
+      "テンプレートリテラルでメッセージを組み立てられる",
+      "イベントリスナーに渡される情報の一例"
+    ],
+    "hints": [
+      "return `イベント: ${eventName}`; と書きます",
+      "eventName には \"click\" などが入ります"
+    ],
+    "testCases": [
+      { "input": ["click"], "expected": "イベント: click" },
+      { "input": ["submit"], "expected": "イベント: submit" }
+    ]
+  },
+  {
+    "id": "w8-a1",
+    "week": 8,
+    "title": "要素をまとめて更新する",
+    "level": "advanced",
+    "type": "test",
+    "functionName": "updateElement",
+    "question": "関数 `updateElement` を作成してください。要素 `el`（`textContent` と `classes` を持つ）と更新内容 `{ text, className }` を受け取り、`textContent` を `text` に変更し、`classes` に `className` を追加した新しいオブジェクトを返します（元の `el` は変更しない）。",
+    "starterCode": "function updateElement(el, update) {\n  \n}\n",
+    "answer": "function updateElement(el, update) {\n  return {\n    textContent: update.text,\n    classes: [...el.classes, update.className],\n  };\n}",
+    "explanation": "テキストとクラスをまとめて更新する処理は、UIの状態変更でよく使います。スプレッド構文で元データを壊さずに新しいオブジェクトを作るのがポイントです。",
+    "learningPoints": [
+      "テキストとクラスを同時に更新できる",
+      "スプレッドで配列をコピーして追加できる",
+      "元のオブジェクトを変更しない設計が大切"
+    ],
+    "hints": [
+      "return { textContent: update.text, classes: [...el.classes, update.className] };",
+      "update.text と update.className を使います"
+    ],
+    "testCases": [
+      {
+        "input": [
+          { "textContent": "旧", "classes": ["box"] },
+          { "text": "新", "className": "active" }
+        ],
+        "expected": { "textContent": "新", "classes": ["box", "active"] }
+      }
+    ]
+  }
+]

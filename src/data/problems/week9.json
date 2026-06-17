@@ -1,0 +1,182 @@
+[
+  {
+    "id": "w9-b1",
+    "week": 9,
+    "title": "Promiseで値を返す",
+    "level": "basic",
+    "section": "Promise編",
+    "type": "test",
+    "functionName": "resolveValue",
+    "question": "関数 `resolveValue` を作成してください。数値 `n` を受け取り、`Promise.resolve(n)` で包んだ Promise を返します。",
+    "starterCode": "function resolveValue(n) {\n  \n}\n",
+    "answer": "function resolveValue(n) {\n  return Promise.resolve(n);\n}",
+    "explanation": "`Promise.resolve(値)` は、すぐに成功する Promise を作ります。非同期処理の結果を Promise として扱う基本です。",
+    "learningPoints": [
+      "Promise.resolve で Promise を作れる",
+      "非同期処理の結果は Promise で表現する",
+      "fetch などのAPIは Promise を返す"
+    ],
+    "hints": [
+      "return Promise.resolve(n); と書きます",
+      "Promise は将来の値を表すオブジェクトです"
+    ],
+    "testCases": [
+      { "input": [42], "expected": 42 },
+      { "input": [7], "expected": 7 }
+    ]
+  },
+  {
+    "id": "w9-b2",
+    "week": 9,
+    "title": "asyncで2倍にする",
+    "level": "basic",
+    "section": "Promise編",
+    "type": "test",
+    "functionName": "doubleAsync",
+    "question": "関数 `doubleAsync` を `async` で作成してください。数値 `n` を受け取り、2倍した値を返します。",
+    "starterCode": "async function doubleAsync(n) {\n  \n}\n",
+    "answer": "async function doubleAsync(n) {\n  return n * 2;\n}",
+    "explanation": "`async` 関数は自動的に Promise を返します。`return` した値は Promise の結果として扱われます。",
+    "learningPoints": [
+      "async 関数は Promise を返す",
+      "async 関数内でも return で値を返せる",
+      "await と組み合わせて非同期処理を書ける"
+    ],
+    "hints": [
+      "async function doubleAsync(n) { ... } と宣言します",
+      "return n * 2; でそのまま返せます"
+    ],
+    "testCases": [
+      { "input": [5], "expected": 10 },
+      { "input": [0], "expected": 0 }
+    ]
+  },
+  {
+    "id": "w9-b3",
+    "week": 9,
+    "title": "asyncで足し算する",
+    "level": "basic",
+    "section": "Promise編",
+    "type": "test",
+    "functionName": "addAsync",
+    "question": "関数 `addAsync` を `async` で作成してください。2つの数値 `a` と `b` を受け取り、足し算の結果を返します。",
+    "starterCode": "async function addAsync(a, b) {\n  \n}\n",
+    "answer": "async function addAsync(a, b) {\n  return a + b;\n}",
+    "explanation": "非同期関数でも、同期的な計算をそのまま書けます。後のレッスンでは `await fetch()` のように非同期APIの結果を待つ処理を学びます。",
+    "learningPoints": [
+      "async 関数でも通常の計算が書ける",
+      "引数を受け取って return できる",
+      "API取得前の async の練習になる"
+    ],
+    "hints": [
+      "async function addAsync(a, b) { ... } の形です",
+      "return a + b; で結果を返します"
+    ],
+    "testCases": [
+      { "input": [10, 20], "expected": 30 },
+      { "input": [3, 7], "expected": 10 }
+    ]
+  },
+  {
+    "id": "w9-b4",
+    "week": 9,
+    "title": "ユーザー名を非同期で返す",
+    "level": "basic",
+    "section": "async/await編",
+    "type": "test",
+    "functionName": "fetchUserName",
+    "question": "関数 `fetchUserName` を `async` で作成してください。引数なしで、文字列 \"太郎\" を返します（APIから取得した想定）。",
+    "starterCode": "async function fetchUserName() {\n  \n}\n",
+    "answer": "async function fetchUserName() {\n  return \"太郎\";\n}",
+    "explanation": "APIからデータを取得する関数は、多くの場合 async 関数として定義されます。ここでは取得結果を模した固定値を返します。",
+    "learningPoints": [
+      "データ取得関数は async で書くことが多い",
+      "async 関数は呼び出し側で await する",
+      "戻り値は Promise として扱われる"
+    ],
+    "hints": [
+      "async function fetchUserName() { ... } と書きます",
+      "return \"太郎\"; で名前を返します"
+    ],
+    "testCases": [
+      { "input": [], "expected": "太郎" }
+    ]
+  },
+  {
+    "id": "w9-b5",
+    "week": 9,
+    "title": "awaitでPromiseを待つ",
+    "level": "basic",
+    "section": "async/await編",
+    "type": "test",
+    "functionName": "getLengthAsync",
+    "question": "関数 `getLengthAsync` を `async` で作成してください。文字列 `text` を受け取り、`await Promise.resolve(text)` で値を待ってから、文字列の長さを返します。",
+    "starterCode": "async function getLengthAsync(text) {\n  \n}\n",
+    "answer": "async function getLengthAsync(text) {\n  const value = await Promise.resolve(text);\n  return value.length;\n}",
+    "explanation": "`await` は Promise の結果が出るまで待ちます。非同期処理の完了を待ってから次の処理に進めます。",
+    "learningPoints": [
+      "await で Promise の結果を待てる",
+      "async 関数の中でのみ await が使える",
+      "非同期の結果を変数に代入できる"
+    ],
+    "hints": [
+      "const value = await Promise.resolve(text); で値を待ちます",
+      "return value.length; で長さを返します"
+    ],
+    "testCases": [
+      { "input": ["Hello"], "expected": 5 },
+      { "input": ["JS"], "expected": 2 }
+    ]
+  },
+  {
+    "id": "w9-b6",
+    "week": 9,
+    "title": "正の数だけを非同期で返す",
+    "level": "basic",
+    "section": "async/await編",
+    "type": "test",
+    "functionName": "getPositiveAsync",
+    "question": "関数 `getPositiveAsync` を `async` で作成してください。数値の配列 `nums` を受け取り、`filter` で正の数だけを残した配列を返します。",
+    "starterCode": "async function getPositiveAsync(nums) {\n  \n}\n",
+    "answer": "async function getPositiveAsync(nums) {\n  return nums.filter((n) => n > 0);\n}",
+    "explanation": "async 関数の中で配列メソッドも普通に使えます。APIから取得したデータを加工する処理のイメージです。",
+    "learningPoints": [
+      "async 関数内で配列メソッドが使える",
+      "非同期関数でもデータ加工は同じ",
+      "取得後のフィルタリングの練習"
+    ],
+    "hints": [
+      "return nums.filter((n) => n > 0); と書きます",
+      "n > 0 が正の数の条件です"
+    ],
+    "testCases": [
+      { "input": [[-1, 2, 0, 5]], "expected": [2, 5] },
+      { "input": [[-3, -2]], "expected": [] }
+    ]
+  },
+  {
+    "id": "w9-a1",
+    "week": 9,
+    "title": "非同期で合計を求める",
+    "level": "advanced",
+    "type": "test",
+    "functionName": "sumAsync",
+    "question": "関数 `sumAsync` を `async` で作成してください。数値の配列 `nums` を受け取り、`await Promise.resolve(nums)` で配列を待ってから、`reduce` で合計を返します。",
+    "starterCode": "async function sumAsync(nums) {\n  \n}\n",
+    "answer": "async function sumAsync(nums) {\n  const values = await Promise.resolve(nums);\n  return values.reduce((total, n) => total + n, 0);\n}",
+    "explanation": "APIから配列データを取得して集計する流れを、await と reduce で模しています。実務のデータ処理に近いパターンです。",
+    "learningPoints": [
+      "await で非同期データを受け取れる",
+      "受け取ったあと reduce で集計できる",
+      "非同期取得とデータ加工の組み合わせ"
+    ],
+    "hints": [
+      "const values = await Promise.resolve(nums); で配列を待ちます",
+      "values.reduce((total, n) => total + n, 0) で合計します"
+    ],
+    "testCases": [
+      { "input": [[1, 2, 3, 4]], "expected": 10 },
+      { "input": [[10, 20]], "expected": 30 }
+    ]
+  }
+]

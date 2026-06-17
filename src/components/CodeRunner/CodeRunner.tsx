@@ -22,8 +22,8 @@ export default function CodeRunner({
     setIsRunning(true);
     setResult(null);
 
-    setTimeout(() => {
-      const runResult = runCode(code, problem);
+    setTimeout(async () => {
+      const runResult = await runCode(code, problem);
       setResult(runResult);
       setIsRunning(false);
 

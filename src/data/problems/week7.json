@@ -1,0 +1,185 @@
+[
+  {
+    "id": "w7-b1",
+    "week": 7,
+    "title": "全要素を2倍にする",
+    "level": "basic",
+    "section": "map/filter編",
+    "type": "test",
+    "functionName": "doubleAll",
+    "question": "関数 `doubleAll` を作成してください。数値の配列 `nums` を受け取り、各要素を2倍にした新しい配列を返します（`map` を使う）。",
+    "starterCode": "function doubleAll(nums) {\n  \n}\n",
+    "answer": "function doubleAll(nums) {\n  return nums.map((n) => n * 2);\n}",
+    "explanation": "`.map()` は配列の各要素を変換して、新しい配列を返します。React でリストの各項目を表示用に変換するときにも使います。",
+    "learningPoints": [
+      "map で配列の各要素を変換できる",
+      "元の配列は変更されない",
+      "コールバックの戻り値が新しい配列の要素になる"
+    ],
+    "hints": [
+      "return nums.map((n) => n * 2); と書きます",
+      "アロー関数で各要素を2倍にします"
+    ],
+    "testCases": [
+      { "input": [[1, 2, 3]], "expected": [2, 4, 6] },
+      { "input": [[0, 5]], "expected": [0, 10] }
+    ]
+  },
+  {
+    "id": "w7-b2",
+    "week": 7,
+    "title": "偶数だけを取り出す",
+    "level": "basic",
+    "section": "map/filter編",
+    "type": "test",
+    "functionName": "pickEvens",
+    "question": "関数 `pickEvens` を作成してください。数値の配列 `nums` を受け取り、偶数だけを含む新しい配列を返します（`filter` を使う）。",
+    "starterCode": "function pickEvens(nums) {\n  \n}\n",
+    "answer": "function pickEvens(nums) {\n  return nums.filter((n) => n % 2 === 0);\n}",
+    "explanation": "`.filter()` は条件に合う要素だけを残した新しい配列を返します。表示する項目を絞り込む処理の基本です。",
+    "learningPoints": [
+      "filter で条件に合う要素だけ残せる",
+      "コールバックが true を返す要素が残る",
+      "元の配列は変更されない"
+    ],
+    "hints": [
+      "return nums.filter((n) => n % 2 === 0); と書きます",
+      "n % 2 === 0 が偶数の条件です"
+    ],
+    "testCases": [
+      { "input": [[1, 2, 3, 4, 5]], "expected": [2, 4] },
+      { "input": [[7, 9]], "expected": [] }
+    ]
+  },
+  {
+    "id": "w7-b3",
+    "week": 7,
+    "title": "名前だけの配列にする",
+    "level": "basic",
+    "section": "map/filter編",
+    "type": "test",
+    "functionName": "getNames",
+    "question": "関数 `getNames` を作成してください。`{ name }` を持つオブジェクトの配列 `users` を受け取り、名前だけの文字列配列を返します（`map` を使う）。",
+    "starterCode": "function getNames(users) {\n  \n}\n",
+    "answer": "function getNames(users) {\n  return users.map((user) => user.name);\n}",
+    "explanation": "オブジェクトの配列から特定のプロパティだけを取り出すのは、map の代表的な使い方です。React のリスト表示の前処理としても使われます。",
+    "learningPoints": [
+      "map でオブジェクト配列から値を取り出せる",
+      "user.name でプロパティにアクセスする",
+      "表示用データの変換に使える"
+    ],
+    "hints": [
+      "return users.map((user) => user.name); と書きます",
+      "各 user から name だけ取り出します"
+    ],
+    "testCases": [
+      {
+        "input": [[{ "name": "太郎" }, { "name": "花子" }]],
+        "expected": ["太郎", "花子"]
+      }
+    ]
+  },
+  {
+    "id": "w7-b4",
+    "week": 7,
+    "title": "条件を満たす最初の要素",
+    "level": "basic",
+    "section": "find/some/reduce編",
+    "type": "test",
+    "functionName": "findFirstOver",
+    "question": "関数 `findFirstOver` を作成してください。数値の配列 `nums` と数値 `min` を受け取り、`min` より大きい最初の要素を返します。見つからなければ `null` を返します（`find` を使う）。",
+    "starterCode": "function findFirstOver(nums, min) {\n  \n}\n",
+    "answer": "function findFirstOver(nums, min) {\n  const found = nums.find((n) => n > min);\n  return found ?? null;\n}",
+    "explanation": "`.find()` は条件に最初に一致した要素を1つ返します。見つからない場合は `undefined` です。",
+    "learningPoints": [
+      "find で条件に合う最初の要素を取得できる",
+      "見つからないときは undefined",
+      "filter とは違い1件だけ返す"
+    ],
+    "hints": [
+      "return nums.find((n) => n > min); と書きます",
+      "n > min が条件です"
+    ],
+    "testCases": [
+      { "input": [[3, 8, 12, 5], 5], "expected": 8 },
+      { "input": [[1, 2, 3], 10], "expected": null }
+    ]
+  },
+  {
+    "id": "w7-b5",
+    "week": 7,
+    "title": "trueが含まれるか",
+    "level": "basic",
+    "section": "find/some/reduce編",
+    "type": "test",
+    "functionName": "hasTrue",
+    "question": "関数 `hasTrue` を作成してください。真偽値の配列 `flags` を受け取り、`true` が1つでもあれば `true`、なければ `false` を返します（`some` を使う）。",
+    "starterCode": "function hasTrue(flags) {\n  \n}\n",
+    "answer": "function hasTrue(flags) {\n  return flags.some((flag) => flag === true);\n}",
+    "explanation": "`.some()` は条件に合う要素が1つでもあれば `true` を返します。チェックボックスの選択確認などに使える考え方です。",
+    "learningPoints": [
+      "some で1つでも条件に合えば true",
+      "全部調べずに見つかった時点で終了する",
+      "every とは反対の動き"
+    ],
+    "hints": [
+      "return flags.some((flag) => flag === true); と書きます",
+      "flag === true の要素があるか調べます"
+    ],
+    "testCases": [
+      { "input": [[false, false, true]], "expected": true },
+      { "input": [[false, false]], "expected": false }
+    ]
+  },
+  {
+    "id": "w7-b6",
+    "week": 7,
+    "title": "合計を求める",
+    "level": "basic",
+    "section": "find/some/reduce編",
+    "type": "test",
+    "functionName": "sumNumbers",
+    "question": "関数 `sumNumbers` を作成してください。数値の配列 `nums` の合計を返します（`reduce` を使う）。",
+    "starterCode": "function sumNumbers(nums) {\n  \n}\n",
+    "answer": "function sumNumbers(nums) {\n  return nums.reduce((total, n) => total + n, 0);\n}",
+    "explanation": "`.reduce()` は配列を1つの値にまとめます。合計・平均・件数などの集計に使われます。",
+    "learningPoints": [
+      "reduce で配列を1つの値にまとめられる",
+      "第2引数 0 が初期値",
+      "total + n で累積していく"
+    ],
+    "hints": [
+      "return nums.reduce((total, n) => total + n, 0); と書きます",
+      "初期値は 0 です"
+    ],
+    "testCases": [
+      { "input": [[1, 2, 3, 4]], "expected": 10 },
+      { "input": [[10, 20]], "expected": 30 }
+    ]
+  },
+  {
+    "id": "w7-a1",
+    "week": 7,
+    "title": "平均値を求める",
+    "level": "advanced",
+    "type": "test",
+    "functionName": "average",
+    "question": "関数 `average` を作成してください。数値の配列 `nums` の平均値を返します（`reduce` と `length` を使う）。",
+    "starterCode": "function average(nums) {\n  \n}\n",
+    "answer": "function average(nums) {\n  const total = nums.reduce((sum, n) => sum + n, 0);\n  return total / nums.length;\n}",
+    "explanation": "reduce で合計を求め、要素数で割ることで平均を計算できます。データの集計処理の応用例です。",
+    "learningPoints": [
+      "reduce と length を組み合わせて平均を出せる",
+      "合計 ÷ 件数 が平均",
+      "配列メソッドの組み合わせが実務で重要"
+    ],
+    "hints": [
+      "まず reduce で合計を求めます",
+      "合計を nums.length で割ります"
+    ],
+    "testCases": [
+      { "input": [[10, 20, 30]], "expected": 20 },
+      { "input": [[2, 4]], "expected": 3 }
+    ]
+  }
+]

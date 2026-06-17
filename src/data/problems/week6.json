@@ -1,0 +1,203 @@
+[
+  {
+    "id": "w6-b1",
+    "week": 6,
+    "title": "名前を取得する",
+    "level": "basic",
+    "section": "オブジェクト基礎編",
+    "type": "test",
+    "functionName": "getName",
+    "question": "関数 `getName` を作成してください。オブジェクト `user` を受け取り、`user.name` の値を返します。",
+    "starterCode": "function getName(user) {\n  \n}\n",
+    "answer": "function getName(user) {\n  return user.name;\n}",
+    "explanation": "オブジェクトのプロパティは `オブジェクト.キー` または `オブジェクト[\"キー\"]` でアクセスします。JSONデータの読み取りと同じ考え方です。",
+    "learningPoints": [
+      "オブジェクトのプロパティは . でアクセスできる",
+      "user.name で name プロパティを取得できる",
+      "関数の引数にオブジェクトを渡せる"
+    ],
+    "hints": [
+      "return user.name; で名前を返します",
+      "user は { name: \"...\" } のようなオブジェクトです"
+    ],
+    "testCases": [
+      { "input": [{ "name": "太郎" }], "expected": "太郎" },
+      { "input": [{ "name": "花子", "age": 20 }], "expected": "花子" }
+    ]
+  },
+  {
+    "id": "w6-b2",
+    "week": 6,
+    "title": "プロパティを動的に取得",
+    "level": "basic",
+    "section": "オブジェクト基礎編",
+    "type": "test",
+    "functionName": "getProperty",
+    "question": "関数 `getProperty` を作成してください。オブジェクト `obj` と文字列 `key` を受け取り、`obj[key]` の値を返します。",
+    "starterCode": "function getProperty(obj, key) {\n  \n}\n",
+    "answer": "function getProperty(obj, key) {\n  return obj[key];\n}",
+    "explanation": "`obj[key]` のように角括弧を使うと、変数でプロパティ名を指定できます。キー名が動的に変わるときに便利です。",
+    "learningPoints": [
+      "obj[key] で動的にプロパティにアクセスできる",
+      "key は変数として渡せる",
+      "ドット記法と角括弧記法の使い分けができる"
+    ],
+    "hints": [
+      "return obj[key]; と書きます",
+      "key には \"name\" や \"age\" などが入ります"
+    ],
+    "testCases": [
+      { "input": [{ "name": "太郎", "age": 25 }, "age"], "expected": 25 },
+      { "input": [{ "role": "admin" }, "role"], "expected": "admin" }
+    ]
+  },
+  {
+    "id": "w6-b3",
+    "week": 6,
+    "title": "プロフィールを作成する",
+    "level": "basic",
+    "section": "オブジェクト基礎編",
+    "type": "test",
+    "functionName": "createProfile",
+    "question": "関数 `createProfile` を作成してください。文字列 `name` と文字列 `role` を受け取り、`{ name, role }` というオブジェクトを返します。",
+    "starterCode": "function createProfile(name, role) {\n  \n}\n",
+    "answer": "function createProfile(name, role) {\n  return { name, role };\n}",
+    "explanation": "オブジェクトリテラル `{ name, role }` は `{ name: name, role: role }` の省略形です。React の props や state でも同じ構造が使われます。",
+    "learningPoints": [
+      "オブジェクトリテラルで新しいオブジェクトを作れる",
+      "{ name, role } はプロパティの省略記法",
+      "関数はオブジェクトを返せる"
+    ],
+    "hints": [
+      "return { name, role }; でオブジェクトを返します",
+      "プロパティ名と変数名が同じときは省略できます"
+    ],
+    "testCases": [
+      {
+        "input": ["太郎", "engineer"],
+        "expected": { "name": "太郎", "role": "engineer" }
+      },
+      {
+        "input": ["花子", "designer"],
+        "expected": { "name": "花子", "role": "designer" }
+      }
+    ]
+  },
+  {
+    "id": "w6-b4",
+    "week": 6,
+    "title": "自己紹介文を作る",
+    "level": "basic",
+    "section": "メソッド・分割代入編",
+    "type": "test",
+    "functionName": "introduce",
+    "question": "関数 `introduce` を作成してください。`{ name, age }` を持つオブジェクト `user` を受け取り、`太郎（25歳）` のような文字列を返します。",
+    "starterCode": "function introduce(user) {\n  \n}\n",
+    "answer": "function introduce(user) {\n  return `${user.name}（${user.age}歳）`;\n}",
+    "explanation": "オブジェクトの複数のプロパティを組み合わせて、表示用の文字列を作れます。UIに表示するテキスト生成の基本パターンです。",
+    "learningPoints": [
+      "オブジェクトの複数プロパティを組み合わせられる",
+      "テンプレートリテラルで整形しやすい",
+      "表示用データの組み立てに使える"
+    ],
+    "hints": [
+      "user.name と user.age を使います",
+      "return `${user.name}（${user.age}歳）`; の形です"
+    ],
+    "testCases": [
+      { "input": [{ "name": "太郎", "age": 25 }], "expected": "太郎（25歳）" },
+      { "input": [{ "name": "花子", "age": 30 }], "expected": "花子（30歳）" }
+    ]
+  },
+  {
+    "id": "w6-b5",
+    "week": 6,
+    "title": "分割代入で名前を取り出す",
+    "level": "basic",
+    "section": "メソッド・分割代入編",
+    "type": "test",
+    "functionName": "pickName",
+    "question": "関数 `pickName` を作成してください。引数で `{ name, age }` を分割代入で受け取り、`name` だけを返します。",
+    "starterCode": "function pickName({ name, age }) {\n  \n}\n",
+    "answer": "function pickName({ name, age }) {\n  return name;\n}",
+    "explanation": "引数の `{ name, age }` は分割代入です。オブジェクトから必要なプロパティだけを取り出して受け取れます。",
+    "learningPoints": [
+      "引数でも分割代入が使える",
+      "必要なプロパティだけ受け取れる",
+      "React の props 分割代入と同じ考え方"
+    ],
+    "hints": [
+      "引数は function pickName({ name, age }) の形です",
+      "return name; で名前だけ返します"
+    ],
+    "testCases": [
+      { "input": [{ "name": "太郎", "age": 25 }], "expected": "太郎" },
+      { "input": [{ "name": "次郎", "age": 18 }], "expected": "次郎" }
+    ]
+  },
+  {
+    "id": "w6-b6",
+    "week": 6,
+    "title": "都市を更新したオブジェクト",
+    "level": "basic",
+    "section": "メソッド・分割代入編",
+    "type": "test",
+    "functionName": "updateCity",
+    "question": "関数 `updateCity` を作成してください。オブジェクト `user` と文字列 `city` を受け取り、元の `user` を変更せず、`city` を追加した新しいオブジェクトを返します（スプレッド構文 `...user` を使う）。",
+    "starterCode": "function updateCity(user, city) {\n  \n}\n",
+    "answer": "function updateCity(user, city) {\n  return { ...user, city };\n}",
+    "explanation": "スプレッド構文 `...user` で既存オブジェクトのプロパティをコピーし、新しいプロパティを上書き・追加できます。元データを壊さない更新方法です。",
+    "learningPoints": [
+      "...obj でオブジェクトを展開できる",
+      "元のオブジェクトを変更せずに新しいオブジェクトを作れる",
+      "React の state 更新と同じ考え方"
+    ],
+    "hints": [
+      "return { ...user, city }; と書きます",
+      "スプレッドで既存のプロパティをコピーします"
+    ],
+    "testCases": [
+      {
+        "input": [{ "name": "太郎", "age": 25 }, "東京"],
+        "expected": { "name": "太郎", "age": 25, "city": "東京" }
+      }
+    ]
+  },
+  {
+    "id": "w6-a1",
+    "week": 6,
+    "title": "エンジニアの人数を数える",
+    "level": "advanced",
+    "type": "test",
+    "functionName": "countEngineers",
+    "question": "関数 `countEngineers` を作成してください。`{ role }` を持つオブジェクトの配列 `users` を受け取り、`role` が \"engineer\" の人数を返します。",
+    "starterCode": "function countEngineers(users) {\n  \n}\n",
+    "answer": "function countEngineers(users) {\n  let count = 0;\n  for (const user of users) {\n    if (user.role === \"engineer\") {\n      count++;\n    }\n  }\n  return count;\n}",
+    "explanation": "オブジェクトの配列をループし、条件に合う要素を数える処理です。ユーザー一覧の集計などでよく使うパターンです。",
+    "learningPoints": [
+      "オブジェクトの配列を for...of で処理できる",
+      "条件に合う要素をカウントできる",
+      "配列とオブジェクトの組み合わせが実務で頻出"
+    ],
+    "hints": [
+      "for (const user of users) で1件ずつ処理します",
+      "user.role === \"engineer\" のとき count を増やします"
+    ],
+    "testCases": [
+      {
+        "input": [
+          [
+            { "name": "太郎", "role": "engineer" },
+            { "name": "花子", "role": "designer" },
+            { "name": "次郎", "role": "engineer" }
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [[{ "name": "三郎", "role": "manager" }]],
+        "expected": 0
+      }
+    ]
+  }
+]
