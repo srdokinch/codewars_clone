@@ -2,78 +2,81 @@
   {
     "id": "w5-b1",
     "week": 5,
-    "title": "挨拶を返す関数",
+    "title": "偶数かどうか判定する",
     "level": "basic",
     "section": "関数宣言編",
     "type": "test",
-    "functionName": "greet",
-    "question": "関数 `greet` を作成してください。引数はなく、戻り値は \"こんにちは\" です。",
-    "starterCode": "function greet() {\n  \n}\n",
-    "answer": "function greet() {\n  return \"こんにちは\";\n}",
-    "explanation": "`function 関数名() { }` で関数を宣言します。`return` で呼び出し元に値を返せます。同じ処理を何度も使うときに便利です。",
+    "functionName": "isEven",
+    "question": "関数 `isEven` を作成してください。数値 `n` を受け取り、偶数なら `true`、奇数なら `false` を返します（`%` 演算子を使う）。",
+    "starterCode": "function isEven(n) {\n  \n}\n",
+    "answer": "function isEven(n) {\n  return n % 2 === 0;\n}",
+    "explanation": "関数の中で演算結果をそのまま `return` できます。`n % 2 === 0` は「2で割った余りが0か」を調べる条件式で、偶数判定によく使います。",
     "learningPoints": [
-      "function キーワードで関数を宣言できる",
-      "return で戻り値を返す",
-      "引数がない関数も作れる"
+      "function で引数を1つ受け取れる",
+      "return に条件式を直接書ける",
+      "% 演算子で剰余を求められる"
     ],
     "hints": [
-      "function greet() { ... } の形で書きます",
-      "return \"こんにちは\"; で文字列を返します"
+      "function isEven(n) { ... } の形で書きます",
+      "return n % 2 === 0; で偶数かどうかを返せます"
     ],
     "testCases": [
-      { "input": [], "expected": "こんにちは" }
+      { "input": [8], "expected": true },
+      { "input": [7], "expected": false },
+      { "input": [0], "expected": true }
     ]
   },
   {
     "id": "w5-b2",
     "week": 5,
-    "title": "2つの数を足す",
+    "title": "大きい方を返す",
     "level": "basic",
     "section": "関数宣言編",
     "type": "test",
-    "functionName": "add",
-    "question": "関数 `add` を作成してください。2つの数値 `a` と `b` を受け取り、足し算の結果を返します。",
-    "starterCode": "function add(a, b) {\n  \n}\n",
-    "answer": "function add(a, b) {\n  return a + b;\n}",
-    "explanation": "関数の `( )` 内に引数を書きます。呼び出すときに渡した値が、関数内の変数として使えます。",
+    "functionName": "getMax",
+    "question": "関数 `getMax` を作成してください。2つの数値 `a` と `b` を受け取り、大きい方の値を返します（`if` 文を使う）。",
+    "starterCode": "function getMax(a, b) {\n  \n}\n",
+    "answer": "function getMax(a, b) {\n  if (a >= b) {\n    return a;\n  }\n  return b;\n}",
+    "explanation": "関数の中で `if` 文を使い、条件によって返す値を変えられます。2つの値を比較して大きい方を選ぶ処理は、よく使う基本パターンです。",
     "learningPoints": [
-      "関数は引数を受け取れる",
-      "引数は関数内の変数として使える",
-      "return で計算結果を返せる"
+      "関数内で if 文が使える",
+      "条件によって return する値を変えられる",
+      "比較演算子で2つの値を比べられる"
     ],
     "hints": [
-      "function add(a, b) { ... } と引数を2つ受け取ります",
-      "return a + b; で足し算結果を返します"
+      "a >= b なら a を返す条件を考えます",
+      "if (a >= b) { return a; } のあと return b; を書きます"
     ],
     "testCases": [
-      { "input": [10, 20], "expected": 30 },
-      { "input": [3, 7], "expected": 10 }
+      { "input": [10, 20], "expected": 20 },
+      { "input": [15, 15], "expected": 15 },
+      { "input": [8, 3], "expected": 8 }
     ]
   },
   {
     "id": "w5-b3",
     "week": 5,
-    "title": "文字列を連結する",
+    "title": "得点メッセージを作る",
     "level": "basic",
     "section": "関数宣言編",
     "type": "test",
-    "functionName": "joinWords",
-    "question": "関数 `joinWords` を作成してください。2つの文字列 `a` と `b` を受け取り、`a + \" \" + b` の形で連結した文字列を返します。",
-    "starterCode": "function joinWords(a, b) {\n  \n}\n",
-    "answer": "function joinWords(a, b) {\n  return a + \" \" + b;\n}",
-    "explanation": "関数は数値だけでなく文字列の処理にも使えます。`+` で文字列を連結できます。",
+    "functionName": "formatScore",
+    "question": "関数 `formatScore` を作成してください。文字列 `name` と数値 `score` を受け取り、`${name}さんの得点: ${score}点` という文字列を返します（テンプレートリテラルを使う）。",
+    "starterCode": "function formatScore(name, score) {\n  \n}\n",
+    "answer": "function formatScore(name, score) {\n  return `${name}さんの得点: ${score}点`;\n}",
+    "explanation": "異なる型の引数（文字列と数値）を組み合わせ、テンプレートリテラルで表示用の文字列を組み立てます。UIに表示するメッセージを作るときによく使う形です。",
     "learningPoints": [
-      "文字列も引数として渡せる",
-      "+ で文字列を連結できる",
-      "スペースを挟むと見やすい文字列になる"
+      "関数は複数の引数を受け取れる",
+      "文字列と数値を組み合わせて返せる",
+      "テンプレートリテラルで読みやすい文字列を作れる"
     ],
     "hints": [
-      "return a + \" \" + b; のように書きます",
-      "文字列の間にスペースを入れましょう"
+      "function formatScore(name, score) { ... } と2つの引数を受け取ります",
+      "return `${name}さんの得点: ${score}点`; の形です"
     ],
     "testCases": [
-      { "input": ["Hello", "World"], "expected": "Hello World" },
-      { "input": ["HTML", "CSS"], "expected": "HTML CSS" }
+      { "input": ["太郎", 85], "expected": "太郎さんの得点: 85点" },
+      { "input": ["花子", 100], "expected": "花子さんの得点: 100点" }
     ]
   },
   {
