@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import AuthNav from "@/components/layout/AuthNav";
+import ProgressMigrationRunner from "@/components/layout/ProgressMigrationRunner";
 import SettingsLink from "@/components/layout/SettingsLink";
 import ThemeToggleBar from "@/components/theme/ThemeToggleBar";
 import "./globals.css";
@@ -36,6 +37,7 @@ export default function RootLayout({
           {themeInitScript}
         </Script>
         <ThemeProvider>
+          <ProgressMigrationRunner />
           <ThemeToggleBar />
           <div className="fixed bottom-4 left-4 z-50 flex flex-col items-start gap-2">
             <AuthNav />
