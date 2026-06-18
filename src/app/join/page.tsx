@@ -10,7 +10,7 @@ function JoinForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") ?? "/";
-  const { isLoggedIn, isAdmin, isLoading, logout, refresh } = useMemberAuth();
+  const { isLoggedIn, isLoading, logout, refresh } = useMemberAuth();
 
   const [code, setCode] = useState("");
   const [displayNameInput, setDisplayNameInput] = useState("");
@@ -87,15 +87,7 @@ function JoinForm() {
             <h1 className="text-2xl font-bold">ログアウト</h1>
             <p className="mt-2 text-sm text-codewars-muted">ログイン中です。</p>
 
-            <div className="mt-6 space-y-3">
-              {isAdmin && (
-                <Link
-                  href="/admin"
-                  className="block w-full rounded-md border border-codewars-border bg-codewars-bg px-4 py-2 text-center text-sm text-codewars-muted transition-colors hover:bg-codewars-panel/50 hover:text-codewars-text"
-                >
-                  管理者ダッシュボードへ
-                </Link>
-              )}
+            <div className="mt-6">
               <button
                 type="button"
                 onClick={handleLogout}
