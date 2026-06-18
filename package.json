@@ -10,8 +10,10 @@
     "generate-invite-codes": "node scripts/generate-invite-codes.mjs"
   },
   "dependencies": {
+    "@fireworks-js/react": "^2.10.8",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.2",
+    "fireworks-js": "^2.10.8",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
