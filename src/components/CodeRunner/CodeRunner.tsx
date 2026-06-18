@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Problem, RunResult } from "@/types";
+import { recordProblemAttempt } from "@/lib/progress-sync";
 import { runCode } from "./runner";
 
 interface CodeRunnerProps {
@@ -26,6 +27,8 @@ export default function CodeRunner({
       const runResult = await runCode(code, problem);
       setResult(runResult);
       setIsRunning(false);
+
+      void recordProblemAttempt(problem.id, runResult.success);
 
       if (runResult.success) {
         onSuccess?.();
