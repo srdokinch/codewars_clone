@@ -62,3 +62,9 @@ export interface TestCaseResult {
 export interface TestRunResult extends RunResult {
   testResults: TestCaseResult[];
 }
+
+export interface StudyAnnouncement {
+  nextSessionDate: string | null;
+  memo: string;
+  updatedAt: string | null;
+}

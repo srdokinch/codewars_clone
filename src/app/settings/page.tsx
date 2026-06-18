@@ -1,6 +1,7 @@
 import Link from "next/link";
 import WeekSidebar from "@/components/layout/WeekSidebar";
 import ProgressSettings from "@/components/settings/ProgressSettings";
+import StudyAnnouncementSettings from "@/components/settings/StudyAnnouncementSettings";
 
 export default function SettingsPage() {
   return (
@@ -21,7 +22,8 @@ export default function SettingsPage() {
           </p>
         </div>
 
-        <div className="p-8">
+        <div className="space-y-6 p-8">
+          <StudyAnnouncementSettings />
           <ProgressSettings />
         </div>
       </main>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import StudyAnnouncementBanner from "@/components/layout/StudyAnnouncementBanner";
 import { getWeeks, getAvailableWeeks } from "@/lib/problems";
 
 export default function WeekSidebar({ currentWeek }: { currentWeek?: number }) {
@@ -15,6 +16,8 @@ export default function WeekSidebar({ currentWeek }: { currentWeek?: number }) {
           </span>
         </Link>
       </div>
+
+      <StudyAnnouncementBanner />
 
       <nav className="scrollbar-thin flex-1 overflow-y-auto p-2">
         <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-codewars-muted">
