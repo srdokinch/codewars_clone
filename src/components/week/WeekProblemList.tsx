@@ -9,8 +9,11 @@ import {
   getAllProgress,
   PROGRESS_CLEARED_EVENT,
   PROGRESS_UPDATED_EVENT,
+  type ProblemProgress,
 } from "@/lib/progress";
 import type { Problem } from "@/types";
+
+type ProgressStore = Record<string, ProblemProgress>;
 
 interface WeekProblemListProps {
   problems: Problem[];
@@ -25,13 +28,15 @@ export default function WeekProblemList({
   numbered = false,
   variant = "basic",
 }: WeekProblemListProps) {
-  const [, setRevision] = useState(0);
+  const [progressStore, setProgressStore] = useState<ProgressStore>({});
 
   const refresh = useCallback(() => {
-    setRevision((value) => value + 1);
+    setProgressStore(getAllProgress());
   }, []);
 
   useEffect(() => {
+    refresh();
+
     window.addEventListener(PROGRESS_UPDATED_EVENT, refresh);
     window.addEventListener(PROGRESS_CLEARED_EVENT, refresh);
     return () => {
@@ -39,8 +44,6 @@ export default function WeekProblemList({
       window.removeEventListener(PROGRESS_CLEARED_EVENT, refresh);
     };
   }, [refresh]);
-
-  const progressStore = getAllProgress();
   const isAdvanced = variant === "advanced";
 
   return (
