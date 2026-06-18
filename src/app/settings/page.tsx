@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageHeader from "@/components/layout/PageHeader";
 import WeekSidebar from "@/components/layout/WeekSidebar";
 import ProgressSettings from "@/components/settings/ProgressSettings";
 import StudyAnnouncementSettings from "@/components/settings/StudyAnnouncementSettings";
@@ -9,7 +10,7 @@ export default function SettingsPage() {
       <WeekSidebar />
 
       <main className="flex-1 overflow-y-auto">
-        <div className="border-b border-codewars-border bg-codewars-surface px-8 py-6">
+        <PageHeader>
           <Link
             href="/"
             className="text-sm text-codewars-muted hover:text-codewars-accent"
@@ -20,7 +21,7 @@ export default function SettingsPage() {
           <p className="mt-2 max-w-2xl text-sm text-codewars-muted">
             学習データの管理やその他の設定を行います。
           </p>
-        </div>
+        </PageHeader>
 
         <div className="space-y-6 p-8">
           <StudyAnnouncementSettings />

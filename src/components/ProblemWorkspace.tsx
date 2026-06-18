@@ -6,6 +6,7 @@ import type { Problem } from "@/types";
 import CodeEditor from "@/components/editor/CodeEditor";
 import CodeRunner from "@/components/CodeRunner/CodeRunner";
 import HintPanel from "@/components/layout/HintPanel";
+import PageHeader from "@/components/layout/PageHeader";
 import LevelBadge from "@/components/ui/LevelBadge";
 import {
   getProblemProgress,
@@ -74,7 +75,7 @@ export default function ProblemWorkspace({
   return (
     <>
       <main className="flex flex-1 flex-col overflow-hidden">
-        <div className="border-b border-codewars-border bg-codewars-surface px-6 py-3">
+        <PageHeader compact>
           <div className="flex items-center gap-3">
             <Link
               href={`/week/${problem.week}#${problem.id}`}
@@ -87,7 +88,7 @@ export default function ProblemWorkspace({
             <LevelBadge level={problem.level} />
             <h1 className="text-lg font-semibold">{problem.title}</h1>
           </div>
-        </div>
+        </PageHeader>
 
         <div className="scrollbar-thin flex-1 overflow-y-auto p-6">
           <div className="mb-6 rounded-md border border-codewars-border bg-codewars-surface p-5">

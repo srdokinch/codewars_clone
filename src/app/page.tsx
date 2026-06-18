@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { getWeeks, getAvailableWeeks, getProblemsByWeek } from "@/lib/problems";
+import PageHeader from "@/components/layout/PageHeader";
 import WeekSidebar from "@/components/layout/WeekSidebar";
+import { getWeeks, getAvailableWeeks, getProblemsByWeek } from "@/lib/problems";
 
 export default function HomePage() {
   const weeks = getWeeks();
@@ -11,13 +12,13 @@ export default function HomePage() {
       <WeekSidebar />
 
       <main className="flex-1 overflow-y-auto">
-        <div className="border-b border-codewars-border bg-codewars-surface px-8 py-6">
+        <PageHeader>
           <h1 className="text-2xl font-bold">JavaScript Dojo</h1>
           <p className="mt-2 max-w-2xl text-sm text-codewars-muted">
             HTML/CSSコーダー向けのJavaScript基礎学習サイトです。
             Weekごとに問題を解きながら、React/Next.jsへのステップアップを目指しましょう。
           </p>
-        </div>
+        </PageHeader>
 
         <div className="grid gap-4 p-8 sm:grid-cols-2 lg:grid-cols-3">
           {weeks.map((week) => {

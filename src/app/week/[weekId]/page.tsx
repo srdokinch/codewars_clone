@@ -5,6 +5,7 @@ import {
   hasProblems,
   groupProblemsBySection,
 } from "@/lib/problems";
+import PageHeader from "@/components/layout/PageHeader";
 import WeekSidebar from "@/components/layout/WeekSidebar";
 import ScrollToHash from "@/components/layout/ScrollToHash";
 import WeekProblemList from "@/components/week/WeekProblemList";
@@ -33,7 +34,7 @@ export default async function WeekPage({ params }: WeekPageProps) {
 
       <main className="flex-1 overflow-y-auto">
         <ScrollToHash />
-        <div className="border-b border-codewars-border bg-codewars-surface px-8 py-6">
+        <PageHeader>
           <span className="font-mono text-sm text-codewars-accent">
             WEEK {week.id}
           </span>
@@ -51,7 +52,7 @@ export default async function WeekPage({ params }: WeekPageProps) {
               </span>
             ))}
           </div>
-        </div>
+        </PageHeader>
 
         <div className="p-8">
           {hasSections ? (
