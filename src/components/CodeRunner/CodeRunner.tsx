@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import type { Problem, RunResult } from "@/types";
-import { recordProblemAttempt } from "@/lib/progress-sync";
+import { getProblemProgress } from "@/lib/progress";
+import { recordRunResult } from "@/lib/progress-sync";
 import { runCode } from "./runner";
 
 interface CodeRunnerProps {
@@ -28,7 +29,9 @@ export default function CodeRunner({
       setResult(runResult);
       setIsRunning(false);
 
-      void recordProblemAttempt(problem.id, runResult.success);
+      const hintsRevealed =
+        getProblemProgress(problem.id)?.hintsRevealed ?? 0;
+      void recordRunResult(problem.id, runResult, hintsRevealed);
 
       if (runResult.success) {
         onSuccess?.();

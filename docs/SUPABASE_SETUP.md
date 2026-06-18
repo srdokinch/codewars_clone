@@ -52,7 +52,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIs...
 2. [`supabase/migrations/001_initial.sql`](../supabase/migrations/001_initial.sql) の内容をすべてコピー
 3. **Run** で実行
 
-`001_initial.sql` 実行後、続けて [`supabase/migrations/002_grant_service_role.sql`](../supabase/migrations/002_grant_service_role.sql) と [`supabase/migrations/003_grant_authenticated.sql`](../supabase/migrations/003_grant_authenticated.sql) も実行してください。
+`001_initial.sql` 実行後、続けて [`supabase/migrations/002_grant_service_role.sql`](../supabase/migrations/002_grant_service_role.sql)、[`supabase/migrations/003_grant_authenticated.sql`](../supabase/migrations/003_grant_authenticated.sql)、[`supabase/migrations/004_admin_problem_detail.sql`](../supabase/migrations/004_admin_problem_detail.sql) も実行してください。
 
 エラーなく完了すれば、テーブル・RLS・RPC が作成される。
 
@@ -61,9 +61,11 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIs...
 - `members` — 表示名・ロール
 - `invite_codes` — 招待コードのハッシュ（クライアントからはアクセス不可）
 - `member_credentials` — 認証用（Service Role のみ）
-- `problem_attempts` / `problem_progress` — 進捗・正誤率
-- `record_problem_attempt` — 進捗記録 RPC
-- `get_admin_dashboard` — 管理者ダッシュボード RPC
+- `problem_attempts` / `problem_progress` — 進捗・正誤率・ヒント使用・テストケース別結果
+- `record_problem_attempt` — 進捗記録 RPC（テスト結果・ヒント使用数対応）
+- `record_hint_usage` — ヒント使用のみ記録 RPC
+- `get_admin_dashboard` — 管理者ダッシュボード RPC（サマリー）
+- `get_admin_member_detail` — 管理者ダッシュボード RPC（メンバー別問題詳細・試行履歴）
 
 ## 6. Auth 設定
 
@@ -98,6 +100,7 @@ npm run dev
 2. 初回は表示名を設定
 3. 問題を実行すると進捗が Supabase に記録される
 4. 管理者コードでログイン後、http://localhost:3000/admin で全員の進捗を確認
+5. メンバー行を展開し、Week 別の問題一覧・試行履歴・ヒント使用状況が表示されることを確認
 
 ## 9. 退職者のコード無効化
 
@@ -118,3 +121,4 @@ WHERE member_id = '対象メンバーの UUID';
 | 管理画面に入れない | `--role admin` で発行したコードでログインしたか |
 | 招待コード生成が失敗 | `SUPABASE_SERVICE_ROLE_KEY` が正しいか |
 | クライアントからデータが取れない | **Enable Data API** が ON か |
+| 管理画面の詳細が空 | `004_admin_problem_detail.sql` が実行済みか |

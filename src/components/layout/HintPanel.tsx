@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProblemProgress, saveProblemProgress } from "@/lib/progress";
+import { recordHintUsage } from "@/lib/progress-sync";
 import type { Problem } from "@/types";
 
 interface HintPanelProps {
@@ -10,12 +12,28 @@ interface HintPanelProps {
 
 export default function HintPanel({ problem, isSolved }: HintPanelProps) {
   const [revealedHints, setRevealedHints] = useState<number>(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const saved = getProblemProgress(problem.id);
+    setRevealedHints(saved?.hintsRevealed ?? 0);
+    setIsLoaded(true);
+  }, [problem.id]);
 
   const revealNextHint = () => {
-    if (revealedHints < problem.hints.length) {
-      setRevealedHints((prev) => prev + 1);
-    }
+    if (revealedHints >= problem.hints.length) return;
+
+    const nextCount = revealedHints + 1;
+    setRevealedHints(nextCount);
+    saveProblemProgress(problem.id, { hintsRevealed: nextCount });
+    void recordHintUsage(problem.id, nextCount);
   };
+
+  if (!isLoaded) {
+    return (
+      <aside className="flex h-full w-72 shrink-0 flex-col border-l border-codewars-border bg-codewars-surface" />
+    );
+  }
 
   return (
     <aside className="flex h-full w-72 shrink-0 flex-col border-l border-codewars-border bg-codewars-surface">

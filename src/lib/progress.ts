@@ -3,6 +3,7 @@ const STORAGE_KEY = "dojo:progress";
 export interface ProblemProgress {
   code?: string;
   isSolved?: boolean;
+  hintsRevealed?: number;
 }
 
 type ProgressStore = Record<string, ProblemProgress>;
