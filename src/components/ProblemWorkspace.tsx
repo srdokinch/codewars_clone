@@ -6,6 +6,7 @@ import type { Problem } from "@/types";
 import CodeEditor from "@/components/editor/CodeEditor";
 import CodeRunner from "@/components/CodeRunner/CodeRunner";
 import HintPanel from "@/components/layout/HintPanel";
+import FireworksCelebration from "@/components/ui/FireworksCelebration";
 import LevelBadge from "@/components/ui/LevelBadge";
 import {
   getProblemProgress,
@@ -25,6 +26,7 @@ export default function ProblemWorkspace({
   const [code, setCode] = useState(problem.starterCode);
   const [isSolved, setIsSolved] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showFireworks, setShowFireworks] = useState(false);
 
   const currentIndex = problems.findIndex((p) => p.id === problem.id);
   const nextProblem = problems[currentIndex + 1];
@@ -33,8 +35,16 @@ export default function ProblemWorkspace({
     const saved = getProblemProgress(problem.id);
     setCode(saved?.code ?? problem.starterCode);
     setIsSolved(saved?.isSolved ?? false);
+    setShowFireworks(false);
     setIsLoaded(true);
   }, [problem.id, problem.starterCode]);
+
+  const handleSuccess = () => {
+    if (!isSolved && problem.level === "advanced") {
+      setShowFireworks(true);
+    }
+    setIsSolved(true);
+  };
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -64,6 +74,7 @@ export default function ProblemWorkspace({
     const handleProgressCleared = () => {
       setCode(problem.starterCode);
       setIsSolved(false);
+      setShowFireworks(false);
     };
 
     window.addEventListener(PROGRESS_CLEARED_EVENT, handleProgressCleared);
@@ -114,7 +125,7 @@ export default function ProblemWorkspace({
           <CodeRunner
             problem={problem}
             code={code}
-            onSuccess={() => setIsSolved(true)}
+            onSuccess={handleSuccess}
           />
 
           {isSolved && nextProblem && (
@@ -148,6 +159,7 @@ export default function ProblemWorkspace({
       </main>
 
       <HintPanel problem={problem} isSolved={isSolved} />
+      <FireworksCelebration active={showFireworks} />
     </>
   );
 }
