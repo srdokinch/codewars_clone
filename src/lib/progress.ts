@@ -4,6 +4,7 @@ export interface ProblemProgress {
   code?: string;
   isSolved?: boolean;
   hintsRevealed?: number;
+  hasAttempted?: boolean;
 }
 
 type ProgressStore = Record<string, ProblemProgress>;

@@ -1,15 +1,20 @@
-import { type NextRequest } from "next/server";
-import { updateSession } from "@/lib/supabase/middleware";
 import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
 
-export async function middleware(request: NextRequest) {
-  const response = await updateSession(request);
+function isPublicPath(pathname: string): boolean {
+  return (
+    pathname === "/" ||
+    pathname === "/join" ||
+    pathname.startsWith("/api/auth/")
+  );
+}
 
-  if (!request.nextUrl.pathname.startsWith("/admin")) {
-    return response;
-  }
-
-  const supabase = createServerClient(
+function createMiddlewareClient(
+  request: NextRequest,
+  response: NextResponse
+) {
+  return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -25,6 +30,17 @@ export async function middleware(request: NextRequest) {
       },
     }
   );
+}
+
+export async function middleware(request: NextRequest) {
+  const response = await updateSession(request);
+  const pathname = request.nextUrl.pathname;
+
+  if (isPublicPath(pathname)) {
+    return response;
+  }
+
+  const supabase = createMiddlewareClient(request, response);
 
   const {
     data: { user },
@@ -32,14 +48,17 @@ export async function middleware(request: NextRequest) {
 
   if (!user) {
     const joinUrl = new URL("/join", request.url);
-    joinUrl.searchParams.set("redirect", request.nextUrl.pathname);
-    return Response.redirect(joinUrl);
+    const redirectPath = `${pathname}${request.nextUrl.search}`;
+    joinUrl.searchParams.set("redirect", redirectPath);
+    return NextResponse.redirect(joinUrl);
   }
 
-  const { data: isAdmin, error: adminError } = await supabase.rpc("is_admin");
+  if (pathname.startsWith("/admin")) {
+    const { data: isAdmin, error: adminError } = await supabase.rpc("is_admin");
 
-  if (adminError || !isAdmin) {
-    return Response.redirect(new URL("/", request.url));
+    if (adminError || !isAdmin) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
 
   return response;
