@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SidebarFooter from "@/components/layout/SidebarFooter";
 import StudyAnnouncementBanner from "@/components/layout/StudyAnnouncementBanner";
 import { getWeeks, getAvailableWeeks } from "@/lib/problems";
 
@@ -58,6 +59,8 @@ export default function WeekSidebar({ currentWeek }: { currentWeek?: number }) {
           })}
         </ul>
       </nav>
+
+      <SidebarFooter />
     </aside>
   );
 }
