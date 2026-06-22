@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import AuthNav from "@/components/layout/AuthNav";
 import ProgressMigrationRunner from "@/components/layout/ProgressMigrationRunner";
-import SettingsLink from "@/components/layout/SettingsLink";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -37,10 +35,6 @@ export default function RootLayout({
         </Script>
         <ThemeProvider>
           <ProgressMigrationRunner />
-          <div className="fixed bottom-4 left-4 z-50 flex flex-col items-start gap-2">
-            <AuthNav />
-            <SettingsLink />
-          </div>
           {children}
         </ThemeProvider>
       </body>

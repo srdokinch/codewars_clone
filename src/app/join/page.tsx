@@ -4,7 +4,28 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 import PageHeader from "@/components/layout/PageHeader";
+import WeekSidebar from "@/components/layout/WeekSidebar";
 import { useMemberAuth } from "@/hooks/useMemberAuth";
+
+function JoinPageShell({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex min-h-screen">
+      <WeekSidebar />
+      <main className="flex-1 overflow-y-auto">
+        <PageHeader compact>
+          <h1 className="text-lg font-semibold">{title}</h1>
+        </PageHeader>
+        {children}
+      </main>
+    </div>
+  );
+}
 
 function JoinForm() {
   const router = useRouter();
@@ -65,23 +86,17 @@ function JoinForm() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen">
-        <PageHeader compact>
-          <h1 className="text-lg font-semibold">ログイン</h1>
-        </PageHeader>
+      <JoinPageShell title="ログイン">
         <div className="flex min-h-[calc(100vh-57px)] items-center justify-center text-codewars-muted">
           読み込み中...
         </div>
-      </div>
+      </JoinPageShell>
     );
   }
 
   if (isLoggedIn) {
     return (
-      <div className="min-h-screen">
-        <PageHeader compact>
-          <h1 className="text-lg font-semibold">ログアウト</h1>
-        </PageHeader>
+      <JoinPageShell title="ログアウト">
         <div className="flex min-h-[calc(100vh-57px)] items-center justify-center p-6">
           <div className="w-full max-w-md rounded-lg border border-codewars-border bg-codewars-surface p-8 shadow-sm">
             <h1 className="text-2xl font-bold">ログアウト</h1>
@@ -105,15 +120,12 @@ function JoinForm() {
             </p>
           </div>
         </div>
-      </div>
+      </JoinPageShell>
     );
   }
 
   return (
-    <div className="min-h-screen">
-      <PageHeader compact>
-        <h1 className="text-lg font-semibold">ログイン</h1>
-      </PageHeader>
+    <JoinPageShell title="ログイン">
       <div className="flex min-h-[calc(100vh-57px)] items-center justify-center p-6">
         <div className="w-full max-w-md rounded-lg border border-codewars-border bg-codewars-surface p-8 shadow-sm">
           <h1 className="text-2xl font-bold">ログイン</h1>
@@ -181,7 +193,7 @@ function JoinForm() {
           </p>
         </div>
       </div>
-    </div>
+    </JoinPageShell>
   );
 }
 
@@ -189,14 +201,11 @@ export default function JoinPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen">
-          <PageHeader compact>
-            <h1 className="text-lg font-semibold">ログイン</h1>
-          </PageHeader>
+        <JoinPageShell title="ログイン">
           <div className="flex min-h-[calc(100vh-57px)] items-center justify-center text-codewars-muted">
             読み込み中...
           </div>
-        </div>
+        </JoinPageShell>
       }
     >
       <JoinForm />
