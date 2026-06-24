@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { useMemberAuth } from "@/hooks/useMemberAuth";
 import {
   fetchStudyAnnouncement,
   STUDY_ANNOUNCEMENT_UPDATED_EVENT,
@@ -8,6 +10,7 @@ import {
 } from "@/lib/study-announcement";
 
 export default function StudyAnnouncementSettings() {
+  const { isLoggedIn, isLoading: isAuthLoading } = useMemberAuth();
   const [nextSessionDate, setNextSessionDate] = useState("");
   const [memo, setMemo] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +27,11 @@ export default function StudyAnnouncementSettings() {
   }, []);
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      setIsLoading(false);
+      return;
+    }
+
     void load();
 
     const handleRefresh = () => {
@@ -34,9 +42,14 @@ export default function StudyAnnouncementSettings() {
     return () => {
       window.removeEventListener(STUDY_ANNOUNCEMENT_UPDATED_EVENT, handleRefresh);
     };
-  }, [load]);
+  }, [isLoggedIn, load]);
 
   const handleSave = async () => {
+    if (!isLoggedIn) {
+      setError("ログインが必要です");
+      return;
+    }
+
     setIsSaving(true);
     setMessage(null);
     setError(null);
@@ -61,10 +74,20 @@ export default function StudyAnnouncementSettings() {
     <section className="rounded-lg border border-codewars-border bg-codewars-surface p-6">
       <h2 className="text-lg font-semibold">勉強会情報</h2>
       <p className="mt-2 text-sm text-codewars-muted">
-        次回の勉強会の日付とメモを全員で共有します。
+        次回の勉強会の日付とメモを全員で共有します。更新にはログインが必要です。
       </p>
 
-      {isLoading ? (
+      {isAuthLoading ? (
+        <p className="mt-6 text-sm text-codewars-muted">読み込み中...</p>
+      ) : !isLoggedIn ? (
+        <p className="mt-6 text-sm text-codewars-muted">
+          編集するには
+          <Link href="/join" className="mx-1 text-codewars-accent hover:underline">
+            ログイン
+          </Link>
+          してください。
+        </p>
+      ) : isLoading ? (
         <p className="mt-6 text-sm text-codewars-muted">読み込み中...</p>
       ) : (
         <div className="mt-6 space-y-4">
