@@ -8,6 +8,7 @@ import CodeRunner from "@/components/CodeRunner/CodeRunner";
 import HintPanel from "@/components/layout/HintPanel";
 import PageHeader from "@/components/layout/PageHeader";
 import FireworksCelebration from "@/components/ui/FireworksCelebration";
+import AdvancedProblemIntro from "@/components/ui/AdvancedProblemIntro";
 import LevelBadge from "@/components/ui/LevelBadge";
 import {
   getProblemProgress,
@@ -31,6 +32,9 @@ export default function ProblemWorkspace({
 
   const currentIndex = problems.findIndex((p) => p.id === problem.id);
   const nextProblem = problems[currentIndex + 1];
+  const isAdvanced = problem.level === "advanced";
+  const isTransitionToAdvanced =
+    problem.level === "basic" && nextProblem?.level === "advanced";
 
   useEffect(() => {
     const saved = getProblemProgress(problem.id);
@@ -85,6 +89,12 @@ export default function ProblemWorkspace({
 
   return (
     <>
+      <AdvancedProblemIntro
+        problemId={problem.id}
+        week={problem.week}
+        active={isAdvanced && !isSolved}
+      />
+
       <main className="flex flex-1 flex-col overflow-hidden">
         <PageHeader compact>
           <div className="flex items-center gap-3">
@@ -102,7 +112,13 @@ export default function ProblemWorkspace({
         </PageHeader>
 
         <div className="scrollbar-thin flex-1 overflow-y-auto p-6">
-          <div className="mb-6 rounded-md border border-codewars-border bg-codewars-surface p-5">
+          <div
+            className={`mb-6 rounded-md border bg-codewars-surface p-5 ${
+              isAdvanced
+                ? "border-codewars-accent/30"
+                : "border-codewars-border"
+            }`}
+          >
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-codewars-muted">
               問題
             </h2>
@@ -130,15 +146,36 @@ export default function ProblemWorkspace({
           />
 
           {isSolved && nextProblem && (
-            <div className="mt-6 rounded-md border border-codewars-success/30 bg-codewars-success/5 p-4">
-              <p className="mb-3 text-sm text-codewars-success">
-                おめでとうございます！ 次の問題に進みましょう。
+            <div
+              className={`mt-6 rounded-md border p-4 ${
+                isTransitionToAdvanced
+                  ? "border-codewars-accent/40 bg-codewars-accent/5"
+                  : "border-codewars-success/30 bg-codewars-success/5"
+              }`}
+            >
+              <p
+                className={`mb-3 text-sm ${
+                  isTransitionToAdvanced
+                    ? "font-semibold text-codewars-accent"
+                    : "text-codewars-success"
+                }`}
+              >
+                {isTransitionToAdvanced
+                  ? "基本問題クリア！いよいよ応用問題です。"
+                  : "おめでとうございます！ 次の問題に進みましょう。"}
               </p>
               <Link
                 href={`/week/${problem.week}/${nextProblem.id}`}
-                className="inline-block rounded-md bg-codewars-success px-4 py-2 text-sm font-semibold text-codewars-bg transition-colors hover:brightness-95"
+                className={`inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition-colors hover:brightness-95 ${
+                  isTransitionToAdvanced
+                    ? "bg-codewars-accent text-codewars-on-accent"
+                    : "bg-codewars-success text-codewars-bg"
+                }`}
               >
-                次の問題: {nextProblem.title} →
+                <LevelBadge level={nextProblem.level} />
+                <span>
+                  次の問題: {nextProblem.title} →
+                </span>
               </Link>
             </div>
           )}
