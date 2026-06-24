@@ -180,8 +180,8 @@
       "配列とオブジェクトの組み合わせが実務で頻出"
     ],
     "hints": [
-      "for (const user of users) で1件ずつ処理します",
-      "user.role === \"engineer\" のとき count を増やします"
+      "for...of で users を1件ずつ処理します",
+      "role が \"engineer\" のオブジェクトを見つけたら、カウンター変数を1増やします"
     ],
     "testCases": [
       {

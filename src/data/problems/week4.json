@@ -184,8 +184,8 @@
       "for文と同じ結果をより簡潔に書ける"
     ],
     "hints": [
-      "items.forEach(function (item) { ... }); の形式です",
-      "ループ内で console.log(item); を呼びます"
+      "items.forEach(function (...) { ... }); の形式です。コールバックの第1引数が各要素になります",
+      "コールバック内で各要素を console.log します"
     ],
     "testCases": [
       { "input": [], "expected": "A\nB\nC" }
@@ -256,8 +256,8 @@
       "新しい配列が返る"
     ],
     "hints": [
-      "const firstTwo = colors.slice(0, 2); で先頭2つを取得します",
-      "firstTwo.length で要素数を確認できます"
+      "colors.slice(0, 2) で先頭2つの要素を取り出せます",
+      "取り出した配列の .length で要素数を確認できます"
     ],
     "testCases": [
       { "input": [], "expected": "2" }

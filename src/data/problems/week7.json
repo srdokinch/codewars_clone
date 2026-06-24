@@ -17,7 +17,7 @@
       "コールバックの戻り値が新しい配列の要素になる"
     ],
     "hints": [
-      "return nums.map((n) => n * 2); と書きます",
+      "nums.map で各要素を2倍にした配列を return します",
       "アロー関数で各要素を2倍にします"
     ],
     "testCases": [
@@ -43,8 +43,8 @@
       "元の配列は変更されない"
     ],
     "hints": [
-      "return nums.filter((n) => n % 2 === 0); と書きます",
-      "n % 2 === 0 が偶数の条件です"
+      "nums.filter で要素 % 2 === 0 を満たすものだけ残して return します",
+      "要素 % 2 === 0 が偶数の条件です"
     ],
     "testCases": [
       { "input": [[1, 2, 3, 4, 5]], "expected": [2, 4] },
@@ -69,8 +69,8 @@
       "表示用データの変換に使える"
     ],
     "hints": [
-      "return users.map((user) => user.name); と書きます",
-      "各 user から name だけ取り出します"
+      "users.map で各オブジェクトの name を取り出した配列を return します",
+      "各オブジェクトから name プロパティだけ取り出します"
     ],
     "testCases": [
       {
@@ -97,8 +97,8 @@
       "filter とは違い1件だけ返す"
     ],
     "hints": [
-      "return nums.find((n) => n > min); と書きます",
-      "n > min が条件です"
+      "nums.find で min より大きい最初の要素を return します",
+      "要素が min より大きいことが条件です"
     ],
     "testCases": [
       { "input": [[3, 8, 12, 5], 5], "expected": 8 },
@@ -123,8 +123,8 @@
       "every とは反対の動き"
     ],
     "hints": [
-      "return flags.some((flag) => flag === true); と書きます",
-      "flag === true の要素があるか調べます"
+      "flags.some で true の要素があるか調べて return します",
+      "true の値が1つでもあるか調べます"
     ],
     "testCases": [
       { "input": [[false, false, true]], "expected": true },
@@ -149,7 +149,7 @@
       "total + n で累積していく"
     ],
     "hints": [
-      "return nums.reduce((total, n) => total + n, 0); と書きます",
+      "nums.reduce で合計を求めます。第2引数 0 が初期値です",
       "初期値は 0 です"
     ],
     "testCases": [
