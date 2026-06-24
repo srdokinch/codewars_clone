@@ -2,8 +2,16 @@
 
 import { useCallback, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import type { DashboardMember, MemberDetail } from "@/types/admin";
+import {
+  getAvailableWeeks,
+  getProblemsByWeek,
+  getWeek,
+} from "@/lib/problems";
+import type { DashboardMember, MemberDetail, WeekDetail } from "@/types/admin";
 import MemberDetailPanel from "./MemberDetailPanel";
+import WeekCard from "./WeekCard";
+
+type ViewMode = "week" | "member";
 
 interface AdminDashboardProps {
   members: DashboardMember[];
@@ -14,6 +22,137 @@ export default function AdminDashboard({
   members,
   totalProblems,
 }: AdminDashboardProps) {
+  const [viewMode, setViewMode] = useState<ViewMode>("week");
+
+  return (
+    <div className="p-8">
+      <div className="mb-6 flex gap-2 border-b border-codewars-border">
+        <TabButton
+          active={viewMode === "week"}
+          onClick={() => setViewMode("week")}
+        >
+          週別
+        </TabButton>
+        <TabButton
+          active={viewMode === "member"}
+          onClick={() => setViewMode("member")}
+        >
+          メンバー別
+        </TabButton>
+      </div>
+
+      {viewMode === "week" ? (
+        <WeekView />
+      ) : (
+        <MemberView members={members} totalProblems={totalProblems} />
+      )}
+    </div>
+  );
+}
+
+interface TabButtonProps {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}
+
+function TabButton({ active, onClick, children }: TabButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`border-b-2 px-4 py-2 text-sm font-medium transition-colors ${
+        active
+          ? "border-codewars-accent text-codewars-text"
+          : "border-transparent text-codewars-muted hover:text-codewars-text"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function WeekView() {
+  const availableWeeks = getAvailableWeeks();
+  const [expandedWeekId, setExpandedWeekId] = useState<number | null>(null);
+  const [weekDetails, setWeekDetails] = useState<Record<number, WeekDetail>>(
+    {}
+  );
+  const [loadingWeekId, setLoadingWeekId] = useState<number | null>(null);
+  const [errorWeekId, setErrorWeekId] = useState<number | null>(null);
+
+  const loadWeekDetail = useCallback(
+    async (weekId: number) => {
+      if (weekDetails[weekId]) return;
+
+      setLoadingWeekId(weekId);
+      setErrorWeekId(null);
+
+      const problemIds = getProblemsByWeek(weekId).map((p) => p.id);
+      const supabase = createClient();
+      const { data, error } = await supabase.rpc("get_admin_week_detail", {
+        p_problem_ids: problemIds,
+      });
+
+      setLoadingWeekId(null);
+
+      if (error) {
+        setErrorWeekId(weekId);
+        return;
+      }
+
+      setWeekDetails((prev) => ({
+        ...prev,
+        [weekId]: data as WeekDetail,
+      }));
+    },
+    [weekDetails]
+  );
+
+  const toggleWeek = async (weekId: number) => {
+    if (expandedWeekId === weekId) {
+      setExpandedWeekId(null);
+      return;
+    }
+
+    setExpandedWeekId(weekId);
+    await loadWeekDetail(weekId);
+  };
+
+  return (
+    <div className="space-y-3">
+      {availableWeeks.map((weekId) => {
+        const week = getWeek(weekId);
+        const problemCount = getProblemsByWeek(weekId).length;
+        const isExpanded = expandedWeekId === weekId;
+        const detail = weekDetails[weekId];
+        const isLoading = loadingWeekId === weekId;
+        const hasError = errorWeekId === weekId;
+
+        return (
+          <WeekCard
+            key={weekId}
+            weekId={weekId}
+            weekTitle={week?.title ?? ""}
+            problemCount={problemCount}
+            isExpanded={isExpanded}
+            isLoading={isLoading}
+            hasError={hasError}
+            detail={detail}
+            onToggle={() => void toggleWeek(weekId)}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+interface MemberViewProps {
+  members: DashboardMember[];
+  totalProblems: number;
+}
+
+function MemberView({ members, totalProblems }: MemberViewProps) {
   const [expandedMemberId, setExpandedMemberId] = useState<string | null>(null);
   const [memberDetails, setMemberDetails] = useState<
     Record<string, MemberDetail>
@@ -59,7 +198,7 @@ export default function AdminDashboard({
   };
 
   return (
-    <div className="overflow-x-auto p-8">
+    <div className="overflow-x-auto">
       {members.length === 0 ? (
         <p className="text-codewars-muted">まだメンバーのデータがありません。</p>
       ) : (

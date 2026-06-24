@@ -55,7 +55,7 @@ export default async function AdminPage() {
         >
           <h1 className="text-2xl font-bold">管理者ダッシュボード</h1>
           <p className="mt-2 text-sm text-codewars-muted">
-            メンバーの学習進捗と正誤率の一覧です。行を展開すると問題別の詳細が表示されます。
+            週別・メンバー別で進捗を確認できます。行を展開すると詳細が表示されます。
           </p>
         </PageHeader>
 
