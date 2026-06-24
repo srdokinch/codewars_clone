@@ -7,7 +7,7 @@ const levelStyles: Record<ProblemLevel, string> = {
 
 const levelLabels: Record<ProblemLevel, string> = {
   basic: "基本",
-  advanced: "応用",
+  advanced: "★ 応用",
 };
 
 export default function LevelBadge({ level }: { level: ProblemLevel }) {
