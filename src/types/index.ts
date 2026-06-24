@@ -50,6 +50,11 @@ export interface RunResult {
   testResults?: TestCaseResult[];
 }
 
+export interface PreviewResult {
+  consoleOutput: string[];
+  error?: string;
+}
+
 export interface TestCaseResult {
   passed: boolean;
   input: unknown[];
