@@ -99,7 +99,7 @@ export default function AdvancedProblemIntro({
         </p>
         <p
           id={bodyId}
-          className="mt-4 text-sm leading-relaxed text-codewars-muted"
+          className="mt-4 whitespace-pre-line text-sm leading-relaxed text-codewars-muted"
         >
           {body}
         </p>

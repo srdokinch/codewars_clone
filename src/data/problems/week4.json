@@ -286,5 +286,55 @@
     "testCases": [
       { "input": [], "expected": "1" }
     ]
+  },
+  {
+    "id": "w4-a1",
+    "week": 4,
+    "title": "配列の合計を求める",
+    "level": "advanced",
+    "section": "配列編",
+    "type": "execution",
+    "question": "数値の配列 `scores` に [80, 90, 70] を代入し、for文と `scores.length` を使って全要素の合計を `console.log` で表示してください。",
+    "starterCode": "const scores = [80, 90, 70];\n// ここにfor文を書いてください\n",
+    "answer": "const scores = [80, 90, 70];\nlet total = 0;\nfor (let i = 0; i < scores.length; i++) {\n  total += scores[i];\n}\nconsole.log(total);",
+    "explanation": "for文で配列を1つずつ処理し、合計用の変数に足し込むパターンです。点数の合計や売上の集計など、実務でもよく使う処理です。",
+    "learningPoints": [
+      "for文で配列の全要素を順番に処理できる",
+      "let で合計用の変数を用意し += で足し込める",
+      "length を使えば要素数が変わっても同じコードで動く"
+    ],
+    "hints": [
+      "let total = 0; で合計用の変数を用意します",
+      "for (let i = 0; i < scores.length; i++) { total += scores[i]; } のように足し込みます",
+      "ループのあと console.log(total); で合計を表示します"
+    ],
+    "testCases": [
+      { "input": [], "expected": "240" }
+    ]
+  },
+  {
+    "id": "w4-a2",
+    "week": 4,
+    "title": "スキルを追加して表示",
+    "level": "advanced",
+    "section": "メソッド編",
+    "type": "execution",
+    "question": "配列 `skills` に [\"HTML\", \"CSS\"] を代入し、`includes` で \"JavaScript\" が含まれていなければ `push` で追加し、`join(\", \")` でカンマ区切りの1行にして `console.log` で表示してください。",
+    "starterCode": "const skills = [\"HTML\", \"CSS\"];\n// ここにコードを書いてください\n",
+    "answer": "const skills = [\"HTML\", \"CSS\"];\nif (!skills.includes(\"JavaScript\")) {\n  skills.push(\"JavaScript\");\n}\nconsole.log(skills.join(\", \"));",
+    "explanation": "includes で存在確認し、なければ push で追加、join で表示用の文字列にまとめる流れです。タグやスキル一覧を動的に更新・表示する場面で使えるパターンです。",
+    "learningPoints": [
+      "includes と push を組み合わせて重複なく追加できる",
+      "join で配列を表示用の文字列に変換できる",
+      "配列メソッドを連携させて実用的な処理が書ける"
+    ],
+    "hints": [
+      "if (!skills.includes(\"JavaScript\")) { ... } で含まれていないときだけ処理します",
+      "skills.push(\"JavaScript\"); で要素を追加します",
+      "console.log(skills.join(\", \")); でカンマ区切りの文字列を表示します"
+    ],
+    "testCases": [
+      { "input": [], "expected": "HTML, CSS, JavaScript" }
+    ]
   }
 ]
