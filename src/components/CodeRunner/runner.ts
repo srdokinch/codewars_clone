@@ -1,4 +1,4 @@
-import type { Problem, RunResult, VariableCheck } from "@/types";
+import type { Problem, PreviewResult, RunResult, VariableCheck } from "@/types";
 
 export interface CodeRunnerStrategy {
   type: Problem["type"];
@@ -14,6 +14,37 @@ function formatValue(value: unknown): string {
 
 function valuesEqual(actual: unknown, expected: unknown): boolean {
   return formatValue(actual) === formatValue(expected);
+}
+
+function createCaptureConsole(logs: string[]) {
+  return {
+    log: (...args: unknown[]) => {
+      logs.push(args.map(formatValue).join(" "));
+    },
+    warn: (...args: unknown[]) => {
+      logs.push(args.map(formatValue).join(" "));
+    },
+    error: (...args: unknown[]) => {
+      logs.push(args.map(formatValue).join(" "));
+    },
+  };
+}
+
+/** 採点なしでコードを実行し、console.log の出力のみ返す */
+export function runPreviewCode(code: string, _problem: Problem): PreviewResult {
+  const logs: string[] = [];
+  const captureConsole = createCaptureConsole(logs);
+
+  try {
+    const runner = new Function("console", `"use strict";\n${code}`);
+    runner(captureConsole);
+    return { consoleOutput: logs };
+  } catch (error) {
+    return {
+      consoleOutput: logs,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
 }
 
 /** 行ごとに空白を除いて比較する（改行の区切りは維持） */

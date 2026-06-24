@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import type { Problem, RunResult } from "@/types";
+import type { PreviewResult, Problem, RunResult } from "@/types";
 import { getProblemProgress, saveProblemProgress } from "@/lib/progress";
 import { recordRunResult } from "@/lib/progress-sync";
-import { runCode } from "./runner";
+import ConsolePanel from "./ConsolePanel";
+import { runCode, runPreviewCode } from "./runner";
 
 interface CodeRunnerProps {
   problem: Problem;
@@ -18,7 +19,20 @@ export default function CodeRunner({
   onSuccess,
 }: CodeRunnerProps) {
   const [result, setResult] = useState<RunResult | null>(null);
+  const [preview, setPreview] = useState<PreviewResult | null>(null);
   const [isRunning, setIsRunning] = useState(false);
+  const [isPreviewing, setIsPreviewing] = useState(false);
+
+  const handlePreview = () => {
+    setIsPreviewing(true);
+    setPreview(null);
+
+    setTimeout(() => {
+      const previewResult = runPreviewCode(code, problem);
+      setPreview(previewResult);
+      setIsPreviewing(false);
+    }, 100);
+  };
 
   const handleRun = () => {
     setIsRunning(true);
@@ -40,15 +54,30 @@ export default function CodeRunner({
     }, 100);
   };
 
+  const isBusy = isRunning || isPreviewing;
+
   return (
     <div className="space-y-4">
-      <button
-        onClick={handleRun}
-        disabled={isRunning}
-        className="w-full rounded-md bg-codewars-accent px-6 py-3 font-semibold text-white [html.dark_&]:text-codewars-bg transition-colors hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        {isRunning ? "実行中..." : "実行する"}
-      </button>
+      <div className="flex gap-3">
+        <button
+          type="button"
+          onClick={handlePreview}
+          disabled={isBusy}
+          className="flex-1 rounded-md border border-codewars-border bg-codewars-surface px-6 py-3 font-semibold text-codewars-text transition-colors hover:bg-codewars-panel/50 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isPreviewing ? "確認中..." : "確認実行"}
+        </button>
+        <button
+          type="button"
+          onClick={handleRun}
+          disabled={isBusy}
+          className="flex-1 rounded-md bg-codewars-accent px-6 py-3 font-semibold text-white [html.dark_&]:text-codewars-bg transition-colors hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isRunning ? "実行中..." : "実行する"}
+        </button>
+      </div>
+
+      <ConsolePanel preview={preview} />
 
       {result && (
         <div
