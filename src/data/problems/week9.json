@@ -120,8 +120,8 @@
       "非同期の結果を変数に代入できる"
     ],
     "hints": [
-      "const value = await Promise.resolve(text); で値を待ちます",
-      "return value.length; で長さを返します"
+      "await Promise.resolve(text) で text の値を待ちます",
+      "待った文字列の .length を return します"
     ],
     "testCases": [
       { "input": ["Hello"], "expected": 5 },
@@ -146,8 +146,8 @@
       "取得後のフィルタリングの練習"
     ],
     "hints": [
-      "return nums.filter((n) => n > 0); と書きます",
-      "n > 0 が正の数の条件です"
+      "nums.filter で 0 より大きい要素だけ残して return します",
+      "0 より大きいことが正の数の条件です"
     ],
     "testCases": [
       { "input": [[-1, 2, 0, 5]], "expected": [2, 5] },
@@ -171,8 +171,8 @@
       "非同期取得とデータ加工の組み合わせ"
     ],
     "hints": [
-      "const values = await Promise.resolve(nums); で配列を待ちます",
-      "values.reduce((total, n) => total + n, 0) で合計します"
+      "await Promise.resolve(nums) で配列を待ちます",
+      "待った配列を reduce で合計します（初期値 0）"
     ],
     "testCases": [
       { "input": [[1, 2, 3, 4]], "expected": 10 },

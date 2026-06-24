@@ -131,8 +131,8 @@
       "classList.remove の考え方に対応する"
     ],
     "hints": [
-      "return el.classes.filter((cls) => cls !== className); と書きます",
-      "cls !== className の要素だけ残します"
+      "el.classes.filter で className と一致しない要素だけ残して return します",
+      "className と一致しないクラス名だけ残します"
     ],
     "testCases": [
       {
