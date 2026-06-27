@@ -161,27 +161,28 @@
   {
     "id": "w5-a1",
     "week": 5,
-    "title": "四則演算関数",
+    "title": "予算内で買えるか判定する",
     "level": "advanced",
     "type": "test",
-    "functionName": "calc",
-    "question": "関数 `calc` を作成してください。数値 `a`、演算子（\"+\" または \"-\" の文字列）、数値 `b` を受け取り、計算結果を返します。",
-    "starterCode": "function calc(a, operator, b) {\n  \n}\n",
-    "answer": "function calc(a, operator, b) {\n  if (operator === \"+\") {\n    return a + b;\n  }\n  if (operator === \"-\") {\n    return a - b;\n  }\n  return 0;\n}",
-    "explanation": "関数の中で if 文を使い、引数の値によって処理を分岐できます。再利用可能な計算ロジックをまとめる応用例です。",
+    "functionName": "canAfford",
+    "question": "関数 `canAfford` を作成してください。商品の価格 `price` と所持金 `budget` を受け取り、買えるなら `true`、買えないなら `false` を返します。",
+    "starterCode": "function canAfford(price, budget) {\n  \n}\n",
+    "answer": "function canAfford(price, budget) {\n  return budget >= price;\n}",
+    "explanation": "2つの引数を比較して真偽値を返す、よくある判定関数の形です。価格と予算を渡すだけで買えるかどうかが分かるため、ショッピングカートや購入ボタンの表示切り替えなどで再利用できます。",
     "learningPoints": [
-      "関数内で条件分岐ができる",
-      "引数で処理内容を切り替えられる",
-      "複数の演算を1つの関数にまとめられる"
+      "2つの引数を比較して true / false を返せる",
+      "関数は判定ロジックをまとめられる",
+      "比較演算の結果をそのまま return できる"
     ],
     "hints": [
-      "if (operator === \"+\") { return a + b; } のように書きます",
-      "else if で \"-\" の場合も処理しましょう"
+      "function canAfford(price, budget) { ... } と2つの引数を受け取ります",
+      "return budget >= price; で買えるかどうかを返せます"
     ],
     "testCases": [
-      { "input": [10, "+", 5], "expected": 15 },
-      { "input": [10, "-", 3], "expected": 7 },
-      { "input": [8, "-", 8], "expected": 0 }
+      { "input": [1000, 1500], "expected": true },
+      { "input": [2000, 1500], "expected": false },
+      { "input": [1500, 1500], "expected": true },
+      { "input": [500, 499], "expected": false }
     ]
   }
 ]
