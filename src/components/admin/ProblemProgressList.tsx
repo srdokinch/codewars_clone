@@ -31,7 +31,19 @@ interface ProblemRowProps {
   successCount: number;
   hintsRevealed: number;
   latestTestResults: StoredTestResult[] | null;
+  memo: string;
+  memoUpdatedAt: string | null;
   attempts: MemberProblemAttempt[];
+}
+
+function formatMemoUpdatedAt(iso: string | null): string {
+  if (!iso) return "";
+  return new Date(iso).toLocaleString("ja-JP", {
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function ProblemRow({
@@ -43,6 +55,8 @@ function ProblemRow({
   successCount,
   hintsRevealed,
   latestTestResults,
+  memo,
+  memoUpdatedAt,
   attempts,
 }: ProblemRowProps) {
   const [expanded, setExpanded] = useState(false);
@@ -81,7 +95,30 @@ function ProblemRow({
           {formatLatestResults(latestTestResults)}
         </span>
       </button>
-      {expanded && <ProblemAttemptHistory attempts={attempts} />}
+      {expanded && (
+        <div className="border-t border-codewars-border/30 bg-codewars-bg/20">
+          <div className="border-b border-codewars-border/30 px-4 py-3">
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-codewars-accent">
+                メモ
+              </h4>
+              {memoUpdatedAt && (
+                <span className="text-xs text-codewars-muted">
+                  更新: {formatMemoUpdatedAt(memoUpdatedAt)}
+                </span>
+              )}
+            </div>
+            {memo.trim() ? (
+              <p className="whitespace-pre-wrap text-sm leading-relaxed text-codewars-text">
+                {memo}
+              </p>
+            ) : (
+              <p className="text-sm italic text-codewars-disabled">（メモなし）</p>
+            )}
+          </div>
+          <ProblemAttemptHistory attempts={attempts} />
+        </div>
+      )}
     </div>
   );
 }
@@ -138,6 +175,8 @@ export default function ProblemProgressList({
             successCount={successCount}
             hintsRevealed={problemProgress?.hints_revealed ?? 0}
             latestTestResults={problemProgress?.latest_test_results ?? null}
+            memo={problemProgress?.memo ?? ""}
+            memoUpdatedAt={problemProgress?.memo_updated_at ?? null}
             attempts={attemptsByProblemId.get(problem.id) ?? []}
           />
         );

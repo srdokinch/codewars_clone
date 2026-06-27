@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getProblemProgress, saveProblemProgress } from "@/lib/progress";
 import { recordHintUsage } from "@/lib/progress-sync";
+import ProblemMemoSection from "@/components/layout/ProblemMemoSection";
 import type { Problem } from "@/types";
 
 interface HintPanelProps {
@@ -42,6 +43,8 @@ export default function HintPanel({ problem, isSolved }: HintPanelProps) {
       </div>
 
       <div className="scrollbar-thin flex-1 space-y-6 overflow-y-auto p-4">
+        <ProblemMemoSection problemId={problem.id} />
+
         <section>
           <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-codewars-warning">
             ヒント

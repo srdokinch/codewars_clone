@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 interface CodeEditorProps {
   value: string;
@@ -8,7 +8,20 @@ interface CodeEditorProps {
   readOnly?: boolean;
 }
 
+interface HistoryEntry {
+  value: string;
+  selectionStart: number;
+  selectionEnd: number;
+}
+
+interface SelectionRange {
+  start: number;
+  end: number;
+}
+
 const INDENT = "  ";
+const MAX_HISTORY = 100;
+const COALESCE_MS = 400;
 
 const OPENING_PAIRS: Record<string, string> = {
   "(": ")",
@@ -180,14 +193,25 @@ function getEnterInsertion(
   };
 }
 
-function setSelection(
+function setSelectionRange(
   textarea: HTMLTextAreaElement,
-  position: number,
-  pendingSelectionRef: React.MutableRefObject<number | null>
+  start: number,
+  end: number,
+  pendingSelectionRef: React.MutableRefObject<SelectionRange | null>
 ) {
-  pendingSelectionRef.current = position;
-  textarea.selectionStart = position;
-  textarea.selectionEnd = position;
+  pendingSelectionRef.current = { start, end };
+  textarea.selectionStart = start;
+  textarea.selectionEnd = end;
+}
+
+function initHistory(
+  value: string,
+  historyRef: React.MutableRefObject<HistoryEntry[]>,
+  historyIndexRef: React.MutableRefObject<number>
+) {
+  const end = value.length;
+  historyRef.current = [{ value, selectionStart: end, selectionEnd: end }];
+  historyIndexRef.current = 0;
 }
 
 export default function CodeEditor({
@@ -196,16 +220,88 @@ export default function CodeEditor({
   readOnly = false,
 }: CodeEditorProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const pendingSelectionRef = useRef<number | null>(null);
+  const pendingSelectionRef = useRef<SelectionRange | null>(null);
+  const historyRef = useRef<HistoryEntry[]>([
+    { value, selectionStart: value.length, selectionEnd: value.length },
+  ]);
+  const historyIndexRef = useRef(0);
+  const skipExternalResetRef = useRef(false);
+  const lastCoalesceTimeRef = useRef(0);
+
+  useEffect(() => {
+    if (skipExternalResetRef.current) {
+      skipExternalResetRef.current = false;
+      return;
+    }
+    initHistory(value, historyRef, historyIndexRef);
+    lastCoalesceTimeRef.current = 0;
+  }, [value]);
 
   useLayoutEffect(() => {
     if (pendingSelectionRef.current === null || !textareaRef.current) return;
 
-    const position = pendingSelectionRef.current;
-    textareaRef.current.selectionStart = position;
-    textareaRef.current.selectionEnd = position;
+    const { start, end } = pendingSelectionRef.current;
+    textareaRef.current.selectionStart = start;
+    textareaRef.current.selectionEnd = end;
     pendingSelectionRef.current = null;
   }, [value]);
+
+  const commitChange = (
+    newValue: string,
+    selectionStart: number,
+    selectionEnd: number,
+    options: { coalesce?: boolean } = {}
+  ) => {
+    const { coalesce = false } = options;
+    const shouldCoalesce =
+      coalesce && Date.now() - lastCoalesceTimeRef.current <= COALESCE_MS;
+
+    if (shouldCoalesce) {
+      historyRef.current[historyIndexRef.current] = {
+        value: newValue,
+        selectionStart,
+        selectionEnd,
+      };
+    } else {
+      let history = historyRef.current.slice(0, historyIndexRef.current + 1);
+      history.push({ value: newValue, selectionStart, selectionEnd });
+      if (history.length > MAX_HISTORY) {
+        history = history.slice(history.length - MAX_HISTORY);
+      }
+      historyRef.current = history;
+      historyIndexRef.current = history.length - 1;
+    }
+
+    lastCoalesceTimeRef.current = Date.now();
+    skipExternalResetRef.current = true;
+    onChange(newValue);
+  };
+
+  const undo = () => {
+    if (historyIndexRef.current <= 0) return;
+
+    historyIndexRef.current -= 1;
+    const entry = historyRef.current[historyIndexRef.current];
+    pendingSelectionRef.current = {
+      start: entry.selectionStart,
+      end: entry.selectionEnd,
+    };
+    skipExternalResetRef.current = true;
+    onChange(entry.value);
+  };
+
+  const redo = () => {
+    if (historyIndexRef.current >= historyRef.current.length - 1) return;
+
+    historyIndexRef.current += 1;
+    const entry = historyRef.current[historyIndexRef.current];
+    pendingSelectionRef.current = {
+      start: entry.selectionStart,
+      end: entry.selectionEnd,
+    };
+    skipExternalResetRef.current = true;
+    onChange(entry.value);
+  };
 
   const insertText = (
     textarea: HTMLTextAreaElement,
@@ -216,9 +312,8 @@ export default function CodeEditor({
   ) => {
     const nextValue = value.slice(0, start) + insertion + value.slice(end);
     const nextCursor = cursorPosition ?? start + insertion.length;
-    pendingSelectionRef.current = nextCursor;
-    onChange(nextValue);
-    setSelection(textarea, nextCursor, pendingSelectionRef);
+    commitChange(nextValue, nextCursor, nextCursor, { coalesce: false });
+    setSelectionRange(textarea, nextCursor, nextCursor, pendingSelectionRef);
   };
 
   const handleAutoPair = (
@@ -246,7 +341,12 @@ export default function CodeEditor({
       if (inSameQuote) {
         if (!hasSelection && value[selectionStart] === e.key) {
           e.preventDefault();
-          setSelection(textarea, selectionStart + 1, pendingSelectionRef);
+          setSelectionRange(
+            textarea,
+            selectionStart + 1,
+            selectionStart + 1,
+            pendingSelectionRef
+          );
         }
         return true;
       }
@@ -303,7 +403,12 @@ export default function CodeEditor({
     if (value[selectionStart] !== e.key) return false;
 
     e.preventDefault();
-    setSelection(textarea, selectionStart + 1, pendingSelectionRef);
+    setSelectionRange(
+      textarea,
+      selectionStart + 1,
+      selectionStart + 1,
+      pendingSelectionRef
+    );
     return true;
   };
 
@@ -324,9 +429,8 @@ export default function CodeEditor({
         const nextValue =
           value.slice(0, selectionStart - 1) + value.slice(selectionStart + 1);
         const nextCursor = selectionStart - 1;
-        pendingSelectionRef.current = nextCursor;
-        onChange(nextValue);
-        setSelection(textarea, nextCursor, pendingSelectionRef);
+        commitChange(nextValue, nextCursor, nextCursor, { coalesce: false });
+        setSelectionRange(textarea, nextCursor, nextCursor, pendingSelectionRef);
         return true;
       }
     }
@@ -334,11 +438,33 @@ export default function CodeEditor({
     return false;
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value: newValue, selectionStart, selectionEnd } = e.target;
+    commitChange(newValue, selectionStart, selectionEnd, { coalesce: true });
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (readOnly) return;
 
     const textarea = e.currentTarget;
     const { selectionStart, selectionEnd } = textarea;
+    const mod = e.metaKey || e.ctrlKey;
+
+    if (mod && e.key === "z") {
+      e.preventDefault();
+      if (e.shiftKey) {
+        redo();
+      } else {
+        undo();
+      }
+      return;
+    }
+
+    if (mod && e.key === "y") {
+      e.preventDefault();
+      redo();
+      return;
+    }
 
     if (handleSkipClosing(e, textarea, selectionStart, selectionEnd)) return;
 
@@ -382,7 +508,7 @@ export default function CodeEditor({
       <textarea
         ref={textareaRef}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
         readOnly={readOnly}
         spellCheck={false}

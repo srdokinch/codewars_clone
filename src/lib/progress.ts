@@ -5,6 +5,7 @@ export interface ProblemProgress {
   isSolved?: boolean;
   hintsRevealed?: number;
   hasAttempted?: boolean;
+  memo?: string;
 }
 
 type ProgressStore = Record<string, ProblemProgress>;

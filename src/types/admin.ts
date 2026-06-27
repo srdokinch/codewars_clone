@@ -19,6 +19,8 @@ export interface MemberProblemProgress {
   hints_revealed: number;
   last_attempted_at: string | null;
   latest_test_results: StoredTestResult[] | null;
+  memo?: string;
+  memo_updated_at?: string | null;
 }
 
 export interface MemberProblemAttempt {
