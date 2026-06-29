@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import {
   fetchCurrentMemberId,
+  hydrateLocalProgressFromCloud,
   migrateLocalProgressToCloud,
 } from "@/lib/progress-migrate";
 
@@ -23,6 +24,7 @@ export function useProgressMigration(
         if (!memberId) return;
 
         await migrateLocalProgressToCloud(memberId);
+        await hydrateLocalProgressFromCloud();
       } finally {
         runningRef.current = false;
       }

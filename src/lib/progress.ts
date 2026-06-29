@@ -54,6 +54,55 @@ export function getAllProgress(): ProgressStore {
   return readStore();
 }
 
+export interface CloudProgressRow {
+  problem_id: string;
+  is_solved: boolean;
+  hints_revealed: number;
+  attempt_count: number;
+}
+
+export function mergeCloudProgressIntoLocal(
+  rows: CloudProgressRow[]
+): { updatedCount: number } {
+  const store = readStore();
+  let updatedCount = 0;
+
+  for (const row of rows) {
+    const existing = store[row.problem_id] ?? {};
+    const merged: ProblemProgress = {
+      ...existing,
+      isSolved: existing.isSolved === true || row.is_solved,
+      hintsRevealed: Math.max(
+        existing.hintsRevealed ?? 0,
+        row.hints_revealed ?? 0
+      ),
+      hasAttempted:
+        existing.hasAttempted === true ||
+        row.attempt_count > 0 ||
+        row.is_solved,
+    };
+
+    const changed =
+      merged.isSolved !== existing.isSolved ||
+      merged.hintsRevealed !== (existing.hintsRevealed ?? 0) ||
+      merged.hasAttempted !== (existing.hasAttempted ?? false);
+
+    if (changed) {
+      store[row.problem_id] = merged;
+      updatedCount++;
+    }
+  }
+
+  if (updatedCount > 0) {
+    writeStore(store);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event(PROGRESS_UPDATED_EVENT));
+    }
+  }
+
+  return { updatedCount };
+}
+
 export function clearAllProgress(): void {
   if (typeof window === "undefined") return;
   try {

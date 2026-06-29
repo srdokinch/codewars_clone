@@ -1,5 +1,9 @@
 import { getAllProblems } from "@/lib/problems";
-import { getAllProgress, type ProblemProgress } from "@/lib/progress";
+import {
+  getAllProgress,
+  mergeCloudProgressIntoLocal,
+  type ProblemProgress,
+} from "@/lib/progress";
 import { createClient } from "@/lib/supabase/client";
 
 const SYNCED_MEMBERS_KEY = "dojo:progress-synced-members";
@@ -173,4 +177,41 @@ export async function migrateLocalProgressToCloud(
     hintOnlyCount,
     failedCount,
   };
+}
+
+export interface HydrateResult {
+  skipped: boolean;
+  updatedCount: number;
+  error?: string;
+}
+
+export async function hydrateLocalProgressFromCloud(): Promise<HydrateResult> {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { skipped: true, updatedCount: 0 };
+  }
+
+  const { data, error } = await supabase
+    .from("problem_progress")
+    .select("problem_id, is_solved, hints_revealed, attempt_count");
+
+  if (error) {
+    console.error("Failed to fetch cloud progress:", error.message);
+    return { skipped: false, updatedCount: 0, error: error.message };
+  }
+
+  if (!data || data.length === 0) {
+    return { skipped: false, updatedCount: 0 };
+  }
+
+  const validIds = new Set(getAllProblems().map((problem) => problem.id));
+  const rows = data.filter((row) => validIds.has(row.problem_id));
+
+  const { updatedCount } = mergeCloudProgressIntoLocal(rows);
+
+  return { skipped: false, updatedCount };
 }
